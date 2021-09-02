@@ -9,7 +9,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->icon               = apply_filters( 'woocommerce_plugpayments_icon', plugins_url( 'assets/images/plug-50x23.png', plugin_dir_path( __FILE__ ) ) );
 		$this->method_title       = __( 'Plug', 'woocommerce-plugpayments' );
 		$this->method_description = __( 'Accept payments by credit card, bank debit or banking ticket using the Plug Payments.', 'woocommerce-plugpayments' );
-		$this->order_button_text  = __( 'Proceed to payment', 'woocommerce-plugpayments' );
+		$this->order_button_text  = __( 'Pay', 'woocommerce-plugpayments' );
 
 		// Load the form fields.
 		$this->init_form_fields();
@@ -28,6 +28,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->sandbox            = $this->get_option( 'sandbox', 'no' );    
 		
 		add_action( 'wp_enqueue_scripts', array( $this, 'checkout_scripts' ) );
+		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
     }
     
 	public function init_form_fields() {
