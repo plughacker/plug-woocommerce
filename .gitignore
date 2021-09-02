@@ -1,0 +1,13 @@
+src/plugins/akismet
+src/plugins/google-listings-and-ads
+src/plugins/jetpack
+src/plugins/mailchimp-for-woocommerce
+src/plugins/mailpoet
+src/plugins/woocommerce
+src/plugins/woocommerce-extra-checkout-fields-for-brazil
+src/plugins/woocommerce-gateway-paypal-express-checkout
+src/plugins/woocommerce-gateway-stripe
+src/plugins/woocommerce-pagseguro
+src/plugins/hello.php
+src/plugins/index.php
+data

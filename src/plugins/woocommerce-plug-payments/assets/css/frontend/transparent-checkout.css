@@ -1,0 +1,10 @@
+.plugpayments-method-form p{
+	width: 100%;
+}
+
+.plugpayments-method-form #plugpayments-card-expiry-field, .plugpayments-method-form #plugpayments-card-cvc-field{
+	width: 47.0588235294%;	
+}
+.plugpayments-method-form #plugpayments-card-cvc-field{
+	float: right;
+}
