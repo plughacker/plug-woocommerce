@@ -1,23 +1,18 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 class WC_Plug_Gateway extends WC_Payment_Gateway {
 	public function __construct() {
 		$this->id                 = 'plugpayments';
-		$this->icon               = apply_filters( 'woocommerce_plugpayments_icon', plugins_url( 'assets/images/plug-50x23.png', plugin_dir_path( __FILE__ ) ) );
+		$this->icon               = apply_filters( 'woocommerce_plugpayments_icon', plugins_url( 'assets/images/poweredbyplug.png', plugin_dir_path( __FILE__ ) ) );
 		$this->method_title       = __( 'Plug', 'woocommerce-plugpayments' );
 		$this->method_description = __( 'Accept payments by credit card, bank debit or banking ticket using the Plug Payments.', 'woocommerce-plugpayments' );
 		$this->order_button_text  = __( 'Pay', 'woocommerce-plugpayments' );
 
-		// Load the form fields.
 		$this->init_form_fields();
 
-		// Load the settings.
 		$this->init_settings();   
 
-		// Define user set variables.
 		$this->title              = $this->get_option( 'title' );
 		$this->description        = $this->get_option( 'description' );
 		$this->clientId           = $this->get_option( 'clientId' );
@@ -26,7 +21,15 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->sandbox_merchantId = $this->get_option( 'sandbox_email' );
 		$this->invoice_prefix     = $this->get_option( 'invoice_prefix', 'WC-' );
 		$this->sandbox            = $this->get_option( 'sandbox', 'no' );    
+		$this->allowedTypes = array();
+		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
+			if($this->get_option( "allow_$key", 'yes' ) == 'yes'){
+				$this->allowedTypes[] = $key;
+			}
+		}
 		
+		$this->api = new WC_PlugPayments_API( $this );
+
 		add_action( 'wp_enqueue_scripts', array( $this, 'checkout_scripts' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
     }
@@ -104,15 +107,29 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'description' => __( 'Please enter a prefix for your invoice numbers.', 'woocommerce-plugpayments' ),
 				'desc_tip'    => true,
 				'default'     => 'WC-',
-			)
-		);	
+			),
+			'transparent_checkout' => array(
+				'title'       => __( 'Transparent Checkout Options', 'woocommerce-plugpayments' ),
+				'type'        => 'title',
+				'description' => '',
+			),			
+		);
+		
+		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
+			$this->form_fields["allow_$key"] = array(
+				'title'   => __( $label, 'woocommerce-plugpayments' ),
+				'type'    => 'checkbox',
+				'label'   => __( "Enable $label", 'woocommerce-plugpayments' ),
+				'default' => 'yes',
+			);
+		}
 	}    
 
 	public function checkout_scripts() {
 		if ( is_checkout() && $this->is_available() ) {
 			if ( ! get_query_var( 'order-received' ) ) {
-				wp_enqueue_style( 'plugpayments-checkout', plugins_url( 'assets/css/frontend/transparent-checkout.css', plugin_dir_path( __FILE__ ) ), array(), WC_PLUGPAYMENTS_VERSION );
-				wp_enqueue_script( 'plugpayments-checkout', plugins_url( 'assets/js/frontend/transparent-checkout.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_PLUGPAYMENTS_VERSION, true );
+				wp_enqueue_style( 'plugpayments-checkout', plugins_url( 'assets/css/transparent-checkout.css', plugin_dir_path( __FILE__ ) ), array(), WC_PLUGPAYMENTS_VERSION );
+				wp_enqueue_script( 'plugpayments-checkout', plugins_url( 'assets/js/min/transparent-checkout-min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_PLUGPAYMENTS_VERSION, true );
 			}
 		}
 	}
@@ -130,12 +147,36 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		wc_get_template(
 			'transparent-checkout-form.php', array(
 				'cart_total'        => $cart_total,
-				'tc_credit'         => $this->tc_credit,
-				'tc_transfer'       => $this->tc_transfer,
-				'tc_ticket'         => $this->tc_ticket,
-				'tc_ticket_message' => $this->tc_ticket_message,
-				'flag'              => plugins_url( 'assets/images/brazilian-flag.png', plugin_dir_path( __FILE__ ) ),
 			), 'woocommerce/plugpayments/', WC_Plug_Payments::get_templates_path()
 		);
-	}		
+	}	
+	
+	public function update_order_status( $posted ) {
+
+	}
+
+	public function process_payment( $order_id ) {
+		$order = wc_get_order( $order_id );
+	
+		$response = $this->api->payment_request( $order, $_POST ); // WPCS: input var ok, CSRF ok.
+
+		if ( $response['data'] ) {
+			$this->update_order_status( $response['data'] );
+		}else{
+			if(!isset($response['error']) || empty($response['error'])){
+				$errors = array( 
+					__( 'Internal error :(', 'woocommerce-plugpayments' ) 
+				);
+			}
+			
+			foreach ( $response['error'] as $error ) {
+				wc_add_notice( $error, 'error' );
+			}
+	
+			return array(
+				'result'   => 'fail',
+				'redirect' => '',
+			);
+		}
+	}
 }

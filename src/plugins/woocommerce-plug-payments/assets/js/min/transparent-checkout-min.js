@@ -1,0 +1,1 @@
+!function(e){"use strict";e(function(){e("body").on("click","label",function(){e(this).parent().find(".checked").removeClass("checked"),e(this).addClass("checked"),e(this).parent().find(".plugpayments-method-form").hide();const n=e(this).find("input").val();e("#plugpayments-"+n+"-form").show()})})}(jQuery);
