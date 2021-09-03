@@ -9,6 +9,13 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
+  gulp:
+      image: node:8
+      user: root
+      working_dir: /home/node/app
+      volumes:
+          - .:/home/node/app
+      command: "npm run start"      
   phpmyadmin:
     depends_on:
       - mysql

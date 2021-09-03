@@ -11,3 +11,4 @@ src/plugins/woocommerce-pagseguro
 src/plugins/hello.php
 src/plugins/index.php
 data
+node_modules
