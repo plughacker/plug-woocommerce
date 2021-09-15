@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<fieldset id="plugpayments-payment-form" data-cart_total="<?php echo esc_attr( number_format( $cart_total, 2, '.', '' ) ); ?>">
+<fieldset id="plugpayments-payment-form">
 	<style>.plugpayments-method-form{display: none;}</style>
 	<?php foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){ ?>
 		<label>
@@ -12,7 +12,8 @@ defined( 'ABSPATH' ) || exit;
 		<?php
 		wc_get_template(
 			"payment-types/$key.php", array(
-
+				'cart_total'           => $cart_total,
+				'minimum_installment'  => $minimum_installment,
 			), 'woocommerce/plugpayments/', WC_Plug_Payments::get_templates_path()
 		);		
 	?>

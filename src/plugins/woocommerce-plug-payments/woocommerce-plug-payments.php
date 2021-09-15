@@ -5,7 +5,7 @@
  * Description: Take credit card payments on your store using Plug.
  * Author: Plug Payments
  * Author URI: https://www.plugpagamentos.com/
- * Version: 5.4.0
+ * Version: 0.1.0
  * Requires at least: 4.6
  * Tested up to: 5.7
  * WC requires at least: 3.3
@@ -17,7 +17,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Plugin constants.
-define( 'WC_PLUGPAYMENTS_VERSION', '2.14.0' );
+define( 'WC_PLUGPAYMENTS_VERSION', '0.1.0' );
 define( 'WC_PLUGPAYMENTS_PLUGIN_FILE', __FILE__ );
 require_once dirname( __FILE__ ) . '/includes/constants/payments-payments-types.php';
 

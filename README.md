@@ -4,7 +4,7 @@ Your last payments integration, Instant access to multiple payment providers wit
 
 A simple, fast and customizable way of integrating with Plug.
 
-Plug is a simple way to accept payments online. With one integration, you're able to connect with several providers and offer the best payment methods, such as credit, debit, boleto, PIX, and more
+Plug is a simple way to accept payments online. With one integration, you're able to connect with several providers and offer the best payment methods, such as credit, debit, boleto, PIX and more
 
 ## Contributing
 
