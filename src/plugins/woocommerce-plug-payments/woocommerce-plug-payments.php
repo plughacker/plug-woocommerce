@@ -19,16 +19,25 @@ defined( 'ABSPATH' ) || exit;
 // Plugin constants.
 define( 'WC_PLUGPAYMENTS_VERSION', '0.1.0' );
 define( 'WC_PLUGPAYMENTS_PLUGIN_FILE', __FILE__ );
-require_once dirname( __FILE__ ) . '/includes/constants/payments-payments-types.php';
+require_once dirname( __FILE__ ) . '/includes/constants/payments-types.php';
 
 class WC_Plug_Payments {
 	public function init() {
-		require_once dirname( __FILE__ ) . '/sdk/plug-payments.php';
-		require_once dirname( __FILE__ ) . '/includes/class-wc-plug-api.php';
-		require_once dirname( __FILE__ ) . '/includes/class-wc-plug-gateway.php';
-		require_once dirname( __FILE__ ) . '/includes/adapters/class-plug-charges-adapter.php';
+		// Checks with WooCommerce is installed.
+		if ( class_exists( 'WC_Payment_Gateway' ) ) {
+			require_once dirname( __FILE__ ) . '/sdk/plug-payments.php';
+			require_once dirname( __FILE__ ) . '/includes/class-wc-plug-api.php';
+			require_once dirname( __FILE__ ) . '/includes/class-wc-plug-gateway.php';
+			require_once dirname( __FILE__ ) . '/includes/adapters/class-plug-charges-adapter.php';
 
-		add_filter( 'woocommerce_payment_gateways', array( __CLASS__, 'add_gateway' ) );
+			add_filter( 'woocommerce_payment_gateways', array( __CLASS__, 'add_gateway' ) );
+		} else {
+			add_action( 'admin_notices', array( __CLASS__, 'woocommerce_missing_notice' ) );
+		}			
+	}
+
+	public static function woocommerce_missing_notice() {
+		include dirname( __FILE__ ) . '/templates/notice/missing-woocommerce.php';
 	}
 
 	public static function add_gateway( $methods ) {

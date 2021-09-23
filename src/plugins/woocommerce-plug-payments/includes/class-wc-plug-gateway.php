@@ -22,12 +22,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->invoice_prefix      = $this->get_option( 'invoice_prefix', 'WC-' );
 		$this->sandbox             = $this->get_option( 'sandbox', 'no' );    
 		$this->minimum_installment = $this->get_option( 'minimum_installment', '5' );  
-		$this->allowedTypes = array();
-		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
-			if($this->get_option( "allow_$key", 'yes' ) == 'yes'){
-				$this->allowedTypes[] = $key;
-			}
-		}
+		$this->allowedTypes = $this->get_allowedTypes();
 		
 		$this->sdk = new Plug_Payments_SDK( $this->clientId, $this->tokenId, ( 'yes' == $this->sandbox ) );	
 		$this->api = new WC_PlugPayments_API( $this );
@@ -143,6 +138,23 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		}
 	}
 
+	public function admin_options() {
+		include WC_Plug_Payments::get_templates_path() . 'admin-page.php';
+	}
+
+	public function is_available() {
+		$available = 	('yes' === $this->get_option( 'enabled' ) && 
+					 	'' !== $this->get_clientId() && 
+						'' !== $this->get_tokenId() && 
+						(NULL !== $this->get_merchantId() || empty($this->get_merchantId())));
+
+		if (in_array(WC_PLUGPAYMENTS_BR_TYPES, $this->allowedTypes) && ! class_exists( 'Extra_Checkout_Fields_For_Brazil' ) ) {
+			$available = false;
+		}
+
+		return $available;
+	}	
+
 	public function payment_fields() {
 		wp_enqueue_script( 'wc-credit-card-form' );
 
@@ -161,6 +173,22 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		);
 	}	
 
+	public function get_allowedTypes($onlyBR = false) {
+		$allowedTypes = array();
+		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
+			if($this->get_option( "allow_$key", 'yes' ) == 'yes'){
+				if($onlyBR){
+					if(in_array($key, array_keys(WC_PLUGPAYMENTS_BR_TYPES))){						
+						$allowedTypes[] = $key;
+					}
+				}else{
+					$allowedTypes[] = $key;
+				}
+			}
+		}
+		return $allowedTypes;
+	}
+	
 	public function get_clientId() {
 		return $this->clientId;
 	}
