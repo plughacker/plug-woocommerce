@@ -2,7 +2,7 @@
 
 <?php
     if ( '' === $this->get_clientId() ) {
-        include WC_Plug_Payments::get_templates_path() . 'notice/missing-email.php';
+        include WC_Plug_Payments::get_templates_path() . 'notice/missing-clientId.php';
     }
 
     if ( '' === $this->get_tokenId() ) {
@@ -14,7 +14,6 @@
     }
 
     if ( !empty($this->get_allowedTypes(true)) && ! class_exists( 'Extra_Checkout_Fields_For_Brazil' ) ) {
-        echo "asdf";
         include WC_Plug_Payments::get_templates_path() . 'notice/missing-ecfb.php';
     }    
 ?>

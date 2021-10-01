@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 class Plug_Charges_Adapter {
-    public function to_credit( &$payload ) {
+    public function to_credit( &$payload, $gateway ) {
         if(!isset($_POST['plugpayments_card_installments'])) $_POST['plugpayments_card_installments'] = "1";
 
         $payload['paymentSource'] = array(
@@ -18,7 +18,7 @@ class Plug_Charges_Adapter {
         $payload['paymentMethod']['installments'] = intval($_POST['plugpayments_card_installments']);
     }
 
-    public function to_pix( &$payload ) {
+    public function to_pix( &$payload, $gateway ) {
         $document_type = ($_POST['billing_persontype'] == '1')? 'cpf' : 'cnpj';
         $document_number = ($_POST['billing_persontype'] == '1')? $_POST['billing_cpf'] : $_POST['billing_cnpj'];
         $document_number = str_replace(array('.',',','-','/'), '', $document_number);
@@ -39,7 +39,7 @@ class Plug_Charges_Adapter {
         $payload['paymentMethod']['expiresIn'] = 3600;
     }      
 
-    public function to_boleto( &$payload ) {
+    public function to_boleto( &$payload, $gateway ) {
         $document_type = ($_POST['billing_persontype'] == '1')? 'cpf' : 'cnpj';
         $document_number = ($_POST['billing_persontype'] == '1')? $_POST['billing_cpf'] : $_POST['billing_cnpj'];
         $document_number = str_replace(array('.',',','-','/'), '', $document_number);
@@ -57,15 +57,15 @@ class Plug_Charges_Adapter {
             )
         );
 
-        $payload['paymentMethod']['expiresDate'] = "2022-12-31";
-        $payload['paymentMethod']['instructions'] = "Instruções para pagamento do boleto";
+        $payload['paymentMethod']['expiresDate'] = date('Y-m-d', strtotime($date. ' + '.$gateway->get_option( 'boleto_expires', 5 ).' days'));
+        $payload['paymentMethod']['instructions'] = $gateway->get_option( 'boleto_instructions', 'Instruções para pagamento do boleto' );
         $payload['paymentMethod']['interest'] = array(
-            "days"=> 1,
-            "amount"=> 100
+            "days"=> intval($gateway->get_option( 'interest_days', '5' )),
+            $gateway->get_option( 'interest_type', 'amount' )=> intval($gateway->get_option( 'interest_value', '5' ))
         );
         $payload['paymentMethod']['fine'] = array(
-            "days"=> 2,
-            "amount"=> 200
+            "days"=> intval($gateway->get_option( 'fine_days', '5' )),
+            $gateway->get_option( 'fine_type', 'amount' )=> intval($gateway->get_option( 'fine_value', '5' ))
         );
     }      
 }

@@ -19,7 +19,8 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->tokenId             = $this->get_option( 'tokenId' );
 		$this->merchantId          = $this->get_option( 'merchantId' );
 		$this->sandbox_merchantId  = $this->get_option( 'sandbox_merchantId' );
-		$this->invoice_prefix      = $this->get_option( 'invoice_prefix', 'WC-' );
+		$this->statement_descriptor= $this->get_option( 'statement_descriptor', 'WC-' );
+		$this->webhook_secret	   = $this->get_option( 'webhook_secret', 'uuid' );
 		$this->sandbox             = $this->get_option( 'sandbox', 'no' );    
 		$this->minimum_installment = $this->get_option( 'minimum_installment', '5' );  
 		$this->allowedTypes = $this->get_allowedTypes();
@@ -30,6 +31,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		add_action( 'wp_enqueue_scripts', array( $this, 'checkout_scripts' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
+		add_action( 'woocommerce_api_wc_plugpayments_gateway', array( $this, 'ipn_handler' ) );
     }
     
 	public function init_form_fields() {
@@ -105,13 +107,19 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'type'        => 'title',
 				'description' => '',
 			),
-			'invoice_prefix' => array(
-				'title'       => __( 'Invoice Prefix', 'woocommerce-plugpayments' ),
+			'statement_descriptor' => array(
+				'title'       => __( 'Statement descriptor', 'woocommerce-plugpayments' ),
 				'type'        => 'text',
-				'description' => __( 'Please enter a prefix for your invoice numbers.', 'woocommerce-plugpayments' ),
+				'description' => __( 'Please enter a statement descriptor.', 'woocommerce-plugpayments' ),
 				'desc_tip'    => true,
 				'default'     => 'WC-',
 			),
+			'webhook_secret' => array(
+				'title'       => __( 'Webhook Secret', 'woocommerce-plugpayments' ),
+				'type'        => 'text',
+				'description' => sprintf(__( 'Please enter a Webhook Secret, use: %s', 'woocommerce-plugpayments' ), WC()->api_request_url( 'WC_PlugPayments_Gateway' ) . '?secret=' . $this->get_option( 'webhook_secret', 'uuid' )),
+				'default'     => 'uuid',
+			),			
 			'transparent_checkout' => array(
 				'title'       => __( 'Transparent Checkout Options', 'woocommerce-plugpayments' ),
 				'type'        => 'title',
@@ -126,8 +134,35 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'label'   => __( "Enable $label", 'woocommerce-plugpayments' ),
 				'default' => 'yes',
 			);
-		}
+
+			if(file_exists(dirname( __FILE__ ) . "/configs/$key.php")){			
+				include dirname( __FILE__ ) . "/configs/$key.php";
+			}
+		}		
 	}    
+
+	public function ipn_validate($data) {		
+		if(!$data || $_GET['secret'] != $this->webhook_secret){
+			wp_die( esc_html__( 'Plug Request Unauthorized', 'woocommerce-plugpayments' ), esc_html__( 'Plug Request Unauthorized', 'woocommerce-plugpayments' ), array( 'response' => 401 ) );
+		}else{
+			header( 'HTTP/1.1 200 OK' );
+		}
+	}
+
+	public function ipn_handler() {	
+		$data = json_decode(file_get_contents('php://input'), true);
+		$this->ipn_validate($data);
+
+		if($data['object'] == 'transaction'){
+			$payment = $data['data'];
+			$order = wc_get_order( $data['data']['orderId'] );
+			if($order && $payment){
+				$this->update_order_status( $order, $payment );
+				$this->save_payment_meta_data( $order, $payment );					
+			}
+		}
+		exit;
+	}
 
 	public function checkout_scripts() {
 		if ( is_checkout() && $this->is_available() ) {
@@ -205,7 +240,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		switch ( $payment['status'] ) {
 			case 'authorized':
 				$order->update_status( 'processing', __( 'Plug: Payment approved.', 'woocommerce-plugpayments' ) );
-				$order->add_order_note( sprintf(__( 'Plug: Payment approved (%s) by %s', 'woocommerce-plugpayments' ), $payment['id'], $payment['paymentMethod']['paymentType']) );
+				$order->add_order_note( __( 'Plug: Payment approved :)', 'woocommerce-plugpayments' ) );
 				wc_reduce_stock_levels( $order->get_order_number() );				
 				break;
 			case 'pre_authorized':
@@ -234,15 +269,20 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 
 	protected function save_payment_meta_data( $order, $payment ) {
 		$meta_data    = array(
-			'paymentStatus' => $payment['status'],
-			'paymentType' => $payment['paymentMethod']['paymentType'],
+			'paymentStatus' => $payment['status']
 		);
 
-		$meta_data['_wc_plug_payment_data'] = $payment;
+		if(isset($payment['paymentMethod'])){
+			$meta_data['paymentType'] = $payment['paymentMethod']['paymentType'];
+			$meta_data['paymentData'] = $payment;
+		}
+
+		$meta_data['_plug_data_' . md5()] = $payment;		
 
 		foreach ( $meta_data as $key => $value ) {
 			$order->update_meta_data( $key, $value );
 		}
+
 		$order->save();		
 	}
 
@@ -298,7 +338,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 
 		$paymentType = $order->get_meta( 'paymentType');
 		$paymentStatus =  $order->get_meta( 'paymentStatus');
-		$paymentData =  $order->get_meta( '_wc_plug_payment_data');
+		$paymentData =  $order->get_meta( 'paymentData');
 
 		wc_get_template(
 			"receipt/$paymentType.php", array(

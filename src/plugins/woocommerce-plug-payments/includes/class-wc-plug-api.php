@@ -33,17 +33,17 @@ class WC_PlugPayments_API {
 		$payload = array(
 			"merchantId"=> $this->gateway->get_merchantId(),
 			"amount"=> $this->money_format( $order->get_total() ),
-			"statementDescriptor"=> $this->gateway->invoice_prefix.$order->get_order_number(),
+			"statementDescriptor"=> $this->gateway->statement_descriptor,
 			"capture"=> true,
+			"orderId"=> $order->get_order_number(),
 			"paymentMethod"=> array(
 				"paymentType"=> $posted['paymentType']
 			)			
 		);
 
-		call_user_func_array(array('Plug_Charges_Adapter', 'to_' . $payment_method), array(&$payload));
+		call_user_func_array(array('Plug_Charges_Adapter', 'to_' . $payment_method), array(&$payload, $this->gateway));
 		
 		$return = $this->gateway->sdk->post_charge( $payload );
-
 		if(isset($return['error'])){
 			$errors = array();
 			if(isset($return['error']['message'])){
