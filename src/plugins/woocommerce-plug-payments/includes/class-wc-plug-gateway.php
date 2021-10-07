@@ -277,7 +277,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 			$meta_data['paymentData'] = $payment;
 		}
 
-		$meta_data['_plug_data_' . md5()] = $payment;		
+		$meta_data['_plug_data_' . time()] = $payment;		
 
 		foreach ( $meta_data as $key => $value ) {
 			$order->update_meta_data( $key, $value );
