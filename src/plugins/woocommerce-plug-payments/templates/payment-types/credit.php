@@ -14,7 +14,7 @@
     </p>
     <p id="plugpayments-card-cvc-field" class="form-row form-row-last">
         <label for="plugpayments-card-cvc"><?php _e( 'Security Code', 'woocommerce-plugpayments' ); ?> <span class="required">*</span></label>
-        <input id="plugpayments-card-cvc" name="plugpayments_card_cvv" class="input-text wc-credit-card-form-card-cvc" type="tel" autocomplete="off" placeholder="<?php _e( 'CVC', 'woocommerce-plugpayments' ); ?>" style="font-size: 1.5em; padding: 8px;" />
+        <input id="plugpayments-card-cvc" name="plugpayments_card_cvv" class="input-text wc-credit-card-form-card-cvv" type="tel" autocomplete="off" placeholder="<?php _e( 'CVV', 'woocommerce-plugpayments' ); ?>" style="font-size: 1.5em; padding: 8px;" />
     </p>
     <div class="clear"></div>
     <p id="plugpayments-card-installments-field" class="form-row form-row-first">

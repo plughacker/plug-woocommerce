@@ -10,7 +10,7 @@
  * Tested up to: 5.7
  * WC requires at least: 3.3
  * WC tested up to: 5.4
- * Text Domain: woocommerce-gateway-plug
+ * Text Domain: woocommerce-plugpayments
  * Domain Path: /languages
  */
 
@@ -22,7 +22,7 @@ define( 'WC_PLUGPAYMENTS_PLUGIN_FILE', __FILE__ );
 require_once dirname( __FILE__ ) . '/includes/constants/payments-types.php';
 
 class WC_Plug_Payments {
-	public function init() {
+	public function init() {				
 		// Checks with WooCommerce is installed.
 		if ( class_exists( 'WC_Payment_Gateway' ) ) {
 			require_once dirname( __FILE__ ) . '/sdk/plug-payments.php';
@@ -33,7 +33,7 @@ class WC_Plug_Payments {
 			add_filter( 'woocommerce_payment_gateways', array( __CLASS__, 'add_gateway' ) );
 		} else {
 			add_action( 'admin_notices', array( __CLASS__, 'woocommerce_missing_notice' ) );
-		}			
+		}	
 	}
 
 	public static function woocommerce_missing_notice() {
@@ -49,6 +49,11 @@ class WC_Plug_Payments {
 	public static function get_templates_path() {
 		return plugin_dir_path( WC_PLUGPAYMENTS_PLUGIN_FILE ) . 'templates/';
 	}	
+
+	public static function load_plugin_textdomain() {
+		load_plugin_textdomain( 'woocommerce-plugpayments', false, "woocommerce-plug-payments/languages/" );
+	}	
 }   
 
 add_action( 'plugins_loaded', array( 'WC_Plug_Payments', 'init' ) );
+add_action( 'plugins_loaded', array('WC_Plug_Payments', 'load_plugin_textdomain' ) );
