@@ -10,19 +10,19 @@ services:
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
   gulp:
-      image: node:8
-      user: root
-      working_dir: /home/node/app
-      volumes:
-          - .:/home/node/app
-      command: "npm run start"      
+    image: node:8
+    user: root
+    working_dir: /home/node/app
+    volumes:
+      - .:/home/node/app
+    command: "npm run start"      
   phpmyadmin:
-    depends_on:
-      - mysql
     image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mysql    
     restart: always
     ports:
-      - '8001:80'
+      - 8001:80
     environment:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: somewordpress    
@@ -31,11 +31,19 @@ services:
     depends_on:
       - mysql   
     volumes:
+      - ./phpunit.xml:/var/www/html/phpunit.xml    
+      - ./tests:/var/www/html/tests     
+      - ./vendor:/var/www/html/vendor
       - ./src/plugins:/var/www/html/wp-content/plugins
     ports:
-      - "8000:80"
+      - 8000:80
     environment:
       WORDPRESS_DB_HOST: mysql:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+  composer:
+    image: composer:1.9.3
+    volumes:
+      - .:/app
+    command: install   

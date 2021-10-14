@@ -36,7 +36,7 @@ Você pode contribuir com código-fonte em nossa página no [GitHub](https://git
 
 ### Configurações do Plugin: ###
 
-Com o plugin instalado acesse o admin do WordPress e entre em **"WooCommerce"** > **"Configurações"** > **"Pagamentos" ** e configure as opção **"Plug"**:
+Com o plugin instalado acesse o admin do WordPress e entre em **"WooCommerce"** > **"Configurações"** > **"Pagamentos"** e configure as opção **"Plug"**:
 
 - Habilite o meio de pagamento que você deseja, preencha as opções de **X-Client-Id**, **X-Api-Key** e **MerchantId** com os dados que você recebeu da plug.
 - Configure uma Chave secreta para o seu webhook e logo apois faça o registro do mesmo na api da Plug, se tiver duvidas pode consultar nossa [documentação](https://docs.plugpagamentos.com/#section/Criacao-de-um-webhook)
@@ -46,6 +46,10 @@ Com o plugin instalado acesse o admin do WordPress e entre em **"WooCommerce"** 
 Pronto, sua loja já pode receber pagamentos pela [Plug](https://www.plugpagamentos.com/?lang=en).
 
 Mais informações sobre nossa API pode consultar a [documentação](https://docs.plugpagamentos.com/) ou entrar em contato :)
+
+## Testes ##
+
+Para rodar os testes unitários utilize o comando vendor/bin/phpunit dentro do containner do wordpress
 
 ## Changelog ##
 

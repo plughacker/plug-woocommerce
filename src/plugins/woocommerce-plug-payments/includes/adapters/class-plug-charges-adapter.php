@@ -1,34 +1,35 @@
 <?php
-defined( 'ABSPATH' ) || exit;
-
 class Plug_Charges_Adapter {
-    public function to_credit( &$payload, $gateway ) {
-        if(!isset($_POST['plugpayments_card_installments'])) $_POST['plugpayments_card_installments'] = "1";
+    public function to_credit( $post, $payload, $gateway = false ) {
+        
+        if(!isset($post['plugpayments_card_installments'])) $post['plugpayments_card_installments'] = "1";
 
         $payload['paymentSource'] = array(
             "sourceType" => "card",
             "card"=> array(
-                "cardNumber"=> $_POST['plugpayments_card_number'],
-                "cardCvv"=> $_POST['plugpayments_card_cvv'],
-                "cardExpirationDate"=> $_POST['plugpayments_card_expiry'],
-                "cardHolderName"=> $_POST['plugpayments_card_holder_name']
+                "cardNumber"=> $post['plugpayments_card_number'],
+                "cardCvv"=> $post['plugpayments_card_cvv'],
+                "cardExpirationDate"=> $post['plugpayments_card_expiry'],
+                "cardHolderName"=> $post['plugpayments_card_holder_name']
             )
         );
 
-        $payload['paymentMethod']['installments'] = intval($_POST['plugpayments_card_installments']);
+        $payload['paymentMethod']['installments'] = intval($post['plugpayments_card_installments']);
+
+        return $payload;
     }
 
-    public function to_pix( &$payload, $gateway ) {
-        $document_type = ($_POST['billing_persontype'] == '1')? 'cpf' : 'cnpj';
-        $document_number = ($_POST['billing_persontype'] == '1')? $_POST['billing_cpf'] : $_POST['billing_cnpj'];
+    public function to_pix( $post, $payload, $gateway = false ) {
+        $document_type = ($post['billing_persontype'] == '1')? 'cpf' : 'cnpj';
+        $document_number = ($post['billing_persontype'] == '1')? $post['billing_cpf'] : $post['billing_cnpj'];
         $document_number = str_replace(array('.',',','-','/'), '', $document_number);
 
         $payload['paymentSource'] = array(
             "sourceType" => "customer",
             "customer"=> array(
-                "name"=> $_POST['billing_first_name'] . ' ' . $_POST['billing_last_name'],
-                "phoneNumber"=> $_POST['billing_phone'],
-                "email"=> $_POST['billing_email'],
+                "name"=> $post['billing_first_name'] . ' ' . $post['billing_last_name'],
+                "phoneNumber"=> $post['billing_phone'],
+                "email"=> $post['billing_email'],
                 "document"=> array(
                     "number"=> $document_number,
                     "type"=> $document_type
@@ -37,19 +38,21 @@ class Plug_Charges_Adapter {
         );
 
         $payload['paymentMethod']['expiresIn'] = 3600;
+
+        return $payload;
     }      
 
-    public function to_boleto( &$payload, $gateway ) {
-        $document_type = ($_POST['billing_persontype'] == '1')? 'cpf' : 'cnpj';
-        $document_number = ($_POST['billing_persontype'] == '1')? $_POST['billing_cpf'] : $_POST['billing_cnpj'];
+    public function to_boleto( $post, $payload, $gateway = false ) {
+        $document_type = ($post['billing_persontype'] == '1')? 'cpf' : 'cnpj';
+        $document_number = ($post['billing_persontype'] == '1')? $post['billing_cpf'] : $post['billing_cnpj'];
         $document_number = str_replace(array('.',',','-','/'), '', $document_number);
 
         $payload['paymentSource'] = array(
             "sourceType" => "customer",
             "customer"=> array(
-                "name"=> $_POST['billing_first_name'] . ' ' . $_POST['billing_last_name'],
-                "phoneNumber"=> $_POST['billing_phone'],
-                "email"=> $_POST['billing_email'],
+                "name"=> $post['billing_first_name'] . ' ' . $post['billing_last_name'],
+                "phoneNumber"=> $post['billing_phone'],
+                "email"=> $post['billing_email'],
                 "document"=> array(
                     "number"=> $document_number,
                     "type"=> $document_type
@@ -67,5 +70,7 @@ class Plug_Charges_Adapter {
             "days"=> intval($gateway->get_option( 'fine_days', '5' )),
             $gateway->get_option( 'fine_type', 'amount' )=> intval($gateway->get_option( 'fine_value', '5' ))
         );
+
+        return $payload;
     }      
 }

@@ -41,7 +41,7 @@ class WC_PlugPayments_API {
 			)			
 		);
 
-		call_user_func_array(array('Plug_Charges_Adapter', 'to_' . $payment_method), array(&$payload, $this->gateway));
+		$payload = call_user_func_array(array('Plug_Charges_Adapter', 'to_' . $payment_method), array($_POST, $payload, $this->gateway));
 		
 		$return = $this->gateway->sdk->post_charge( $payload );
 		if(isset($return['error'])){
