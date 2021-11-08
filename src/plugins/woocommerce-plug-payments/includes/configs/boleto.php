@@ -2,6 +2,7 @@
 $this->form_fields["boleto_expires"] = array(
     'title'       => __( 'Expires days', 'woocommerce-plugpayments' ),
     'type'        => 'number',
+    'label_class' => 'mishaclass',
     'description' => __( 'Enter the number of days for the boleto to expire', 'woocommerce-plugpayments' ),
     'default'     => '5',
 );
@@ -19,8 +20,8 @@ $this->form_fields["interest_type"] = array(
     'type'        => 'select',
     'description' => __( 'Enter the format to interest', 'woocommerce-plugpayments' ),
     'options'     => array(
-        'amount' => 'Amount',
-        'percentage' => 'Percentage'
+        'amount' => __('Amount', 'woocommerce-plugpayments' ),
+        'percentage' => __('Percentage', 'woocommerce-plugpayments' )
     ),
 );
 $this->form_fields["interest_value"] = array(
@@ -40,8 +41,8 @@ $this->form_fields["fine_type"] = array(
     'type'        => 'select',
     'description' => __( 'Enter the format to fine', 'woocommerce-plugpayments' ),
     'options'     => array(
-        'amount' => 'Amount',
-        'percentage' => 'Percentage'
+        'amount' => __('Amount', 'woocommerce-plugpayments' ),
+        'percentage' => __('Percentage', 'woocommerce-plugpayments' )
     ),
 );
 $this->form_fields["fine_value"] = array(

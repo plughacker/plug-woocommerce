@@ -111,7 +111,6 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'title'       => __( 'Statement descriptor', 'woocommerce-plugpayments' ),
 				'type'        => 'text',
 				'description' => __( 'Please enter a statement descriptor.', 'woocommerce-plugpayments' ),
-				'desc_tip'    => true,
 				'default'     => 'WC-',
 			),
 			'webhook_secret' => array(
@@ -134,11 +133,18 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'label'   => __( "Enable $label", 'woocommerce-plugpayments' ),
 				'default' => 'yes',
 			);
+		}	
 
-			if(file_exists(dirname( __FILE__ ) . "/configs/$key.php")){			
+		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
+			if(file_exists(dirname( __FILE__ ) . "/configs/$key.php")){	
+				$this->form_fields[$key] = array(
+					'title'       => __( "$label Options", 'woocommerce-plugpayments' ),
+					'type'        => 'title',
+					'description' => '',
+				);						
 				include dirname( __FILE__ ) . "/configs/$key.php";
 			}
-		}		
+		}
 	}    
 
 	public function ipn_validate($data) {		
@@ -240,7 +246,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		switch ( $payment['status'] ) {
 			case 'authorized':
 				$order->update_status( 'processing', __( 'Plug: Payment approved.', 'woocommerce-plugpayments' ) );
-				$order->add_order_note( __( 'Plug: Payment approved :)', 'woocommerce-plugpayments' ) );
+				$order->add_order_note( __( 'Plug: Payment approved.', 'woocommerce-plugpayments' ) );
 				wc_reduce_stock_levels( $order->get_order_number() );				
 				break;
 			case 'pre_authorized':

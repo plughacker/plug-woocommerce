@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: woocommerce-plugpayments\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-"
 "pagseguro\n"
-"POT-Creation-Date: 2021-10-07 13:35-0300\n"
-"PO-Revision-Date: 2021-10-07 15:38-0300\n"
+"POT-Creation-Date: 2021-11-08 14:37-0300\n"
+"PO-Revision-Date: 2021-11-08 17:19-0300\n"
 "Last-Translator: \n"
 "Language-Team: pt_BR <LL@li.org>\n"
 "Language: pt_BR\n"
@@ -63,7 +63,7 @@ msgstr "Isso controla a descrição que o usuário vê durante o checkout."
 
 #: includes/class-wc-plug-gateway.php:50
 msgid "Pay via Plug"
-msgstr ""
+msgstr "Pagamento via Plug"
 
 #: includes/class-wc-plug-gateway.php:53
 msgid "Minimum value of the installment"
@@ -124,58 +124,58 @@ msgstr "Comportamento de Integração"
 
 #: includes/class-wc-plug-gateway.php:111
 msgid "Statement descriptor"
-msgstr "Statement descriptor"
+msgstr "Identificação da loja"
 
 #: includes/class-wc-plug-gateway.php:113
 msgid "Please enter a statement descriptor."
-msgstr "Insira um statement descriptor."
+msgstr ""
+"Essa identificação aparecerá na fatura do cartão do seu cliente (statement "
+"descriptor)."
 
 #: includes/class-wc-plug-gateway.php:118
 msgid "Webhook Secret"
-msgstr "Webhook"
+msgstr "Chave de acesso para validar o Webhook"
 
 #: includes/class-wc-plug-gateway.php:120
 #, php-format
 msgid "Please enter a Webhook Secret, use: %s"
-msgstr "Insira um segredo para o Webhook, use: %s"
+msgstr ""
+"Insira uma chave de acesso para o Webhook, pode ser um valor aleatório que "
+"só você conhece, depois cadastre o webhook para a seguinte url: %s"
 
 #: includes/class-wc-plug-gateway.php:124
 msgid "Transparent Checkout Options"
 msgstr "Opções de check-out transparente"
 
-#: includes/class-wc-plug-gateway.php:242
+#: includes/class-wc-plug-gateway.php:249
 msgid "Plug: Payment approved."
 msgstr "Plug: Pagamento aprovado."
 
-#: includes/class-wc-plug-gateway.php:243
-msgid "Plug: Payment approved :)"
-msgstr "Plug: Pagamento aprovado :)"
-
-#: includes/class-wc-plug-gateway.php:247
+#: includes/class-wc-plug-gateway.php:254
 msgid "Plug: Payment is pre-authorized"
 msgstr "Plug: O pagamento é pré-autorizado"
 
-#: includes/class-wc-plug-gateway.php:250
+#: includes/class-wc-plug-gateway.php:257
 msgid "Plug: Payment is pending"
 msgstr "Plug: O pagamento está pendente"
 
-#: includes/class-wc-plug-gateway.php:253
+#: includes/class-wc-plug-gateway.php:260
 msgid "Plug: Payment is failed"
 msgstr "Plug: O pagamento falhou"
 
-#: includes/class-wc-plug-gateway.php:256
+#: includes/class-wc-plug-gateway.php:263
 msgid "Plug: Payment is canceled"
 msgstr "Plug: Pagamento cancelado"
 
-#: includes/class-wc-plug-gateway.php:259
+#: includes/class-wc-plug-gateway.php:266
 msgid "Plug: Payment refunded"
 msgstr "Plug: Pagamento reembolsado"
 
-#: includes/class-wc-plug-gateway.php:263
+#: includes/class-wc-plug-gateway.php:270
 msgid "Plug: Payment came into dispute."
 msgstr "Plug: O pagamento entrou em disputa."
 
-#: includes/class-wc-plug-gateway.php:321
+#: includes/class-wc-plug-gateway.php:328
 msgid "Internal error :("
 msgstr "Erro interno :("
 
@@ -183,47 +183,47 @@ msgstr "Erro interno :("
 msgid "Expires days"
 msgstr "Dias para expiração"
 
-#: includes/configs/boleto.php:5
+#: includes/configs/boleto.php:6
 msgid "Enter the number of days for the boleto to expire"
 msgstr "Insira o número de dias para o boleto expirar"
 
-#: includes/configs/boleto.php:10
+#: includes/configs/boleto.php:11
 msgid "Instructions"
 msgstr "Instruções"
 
-#: includes/configs/boleto.php:12
+#: includes/configs/boleto.php:13
 msgid "Please enter your instructions for Boleto"
 msgstr "Por favor, insira suas instruções para o Boleto"
 
-#: includes/configs/boleto.php:18
+#: includes/configs/boleto.php:19
 msgid "Interest"
 msgstr "Juros"
 
-#: includes/configs/boleto.php:20
+#: includes/configs/boleto.php:21
 msgid "Enter the format to interest"
 msgstr "Insira o formato de juros"
 
-#: includes/configs/boleto.php:28
+#: includes/configs/boleto.php:29
 msgid "Enter value for interest"
 msgstr "Insira o valor de juros"
 
-#: includes/configs/boleto.php:33
+#: includes/configs/boleto.php:34
 msgid "Enter days for interest"
 msgstr "Insira os dias de juros"
 
-#: includes/configs/boleto.php:39
+#: includes/configs/boleto.php:40
 msgid "Fine"
 msgstr "Multa"
 
-#: includes/configs/boleto.php:41
+#: includes/configs/boleto.php:42
 msgid "Enter the format to fine"
 msgstr "Insira o formato da multa"
 
-#: includes/configs/boleto.php:49
+#: includes/configs/boleto.php:50
 msgid "Enter value for fine"
 msgstr "Insira o valor para multa"
 
-#: includes/configs/boleto.php:54
+#: includes/configs/boleto.php:55
 msgid "Enter days for fine"
 msgstr "Insira a quantidade de dias para multa"
 
@@ -280,3 +280,25 @@ msgstr "Parcelas"
 #, php-format
 msgid "the minimum value of the installment is %s."
 msgstr "o valor mínimo da parcela é R$ %s."
+
+#: templates/transparent-checkout-form.php:3
+msgid "Boleto Options"
+msgstr "Opções do Boleto"
+
+msgid "Enable Credit"
+msgstr "Habilitar Crédito"
+
+msgid "Enable Pix"
+msgstr "Habilitar Pix"
+
+msgid "Enable Boleto"
+msgstr "Habilitar Boleto"
+
+msgid "Credit"
+msgstr "Crédito"
+
+msgid "Amount"
+msgstr "Valor"
+
+msgid "Percentage"
+msgstr "Percentual"
