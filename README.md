@@ -50,8 +50,3 @@ Mais informações sobre nossa API pode consultar a [documentação](https://doc
 ## Testes ##
 
 Para rodar os testes unitários utilize o comando vendor/bin/phpunit dentro do containner do wordpress
-
-## Changelog ##
-
-### 0.1.0 - 2021-10-10 ###
- * Liberação da versão Beta
