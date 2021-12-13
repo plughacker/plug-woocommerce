@@ -210,6 +210,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 			'transparent-checkout-form.php', array(
 				'cart_total'         => $cart_total,
 				'minimum_installment'=> $this->minimum_installment,
+				'allowedTypes'       => $this->allowedTypes,
 			), 'woocommerce/plugpayments/', WC_Plug_Payments::get_templates_path()
 		);
 	}	
