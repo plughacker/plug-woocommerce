@@ -3,12 +3,9 @@ defined( 'ABSPATH' ) || exit;
 
 class WC_PlugPayments_API {
 	protected $gateway;
-    private $is_sandbox;
 
 	public function __construct( $gateway = null ) {
 		$this->gateway = $gateway;
-        $this->$is_sandbox = ( 'yes' == $this->gateway->sandbox );
-		$this->$merchantId = ($this->$is_sandbox)? $this->gateway->sandbox_merchantId : $this->gateway->merchantId;	
 	}  
 
 	protected function money_format( $value ) {

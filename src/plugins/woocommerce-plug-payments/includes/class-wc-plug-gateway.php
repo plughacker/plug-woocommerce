@@ -240,7 +240,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 	}	
 
 	public function get_merchantId() {
-		return 'yes' === $this->sandbox ? $this->sandbox_merchantId : $this->gateway->merchantId;
+		return 'yes' === $this->sandbox ? $this->sandbox_merchantId : $this->merchantId;
 	}		
 	
 	public function update_order_status( $order, $payment ) {
