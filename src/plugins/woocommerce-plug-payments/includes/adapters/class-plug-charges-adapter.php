@@ -1,5 +1,21 @@
 <?php
 class Plug_Charges_Adapter {
+
+    private function get_document( $post ) {
+        if (isset($post['billing_persontype']) and !empty($post['billing_persontype'])){
+            $document_type = ($post['billing_persontype'] == '1')? 'cpf' : 'cnpj';
+            $document_number = ($post['billing_persontype'] == '1')? $post['billing_cpf'] : $post['billing_cnpj'];
+        } else if (isset($post['billing_cpf']) and !empty($post['billing_cpf'])){
+            $document_type = 'cpf';
+            $document_number = $post['billing_cpf'];
+        } else if (isset($post['billing_cnpj']) and !empty($post['billing_cnpj'])){
+            $document_type = 'cnpj';
+            $document_number = $post['billing_cnpj'];
+        }
+        $document_number = str_replace(array('.',',','-','/'), '', $document_number);
+        return array($document_type, $document_number);
+    }
+
     public function to_credit( $post, $payload, $gateway = false ) {
         
         if(!isset($post['plugpayments_card_installments'])) $post['plugpayments_card_installments'] = "1";
@@ -20,19 +36,7 @@ class Plug_Charges_Adapter {
     }
 
     public function to_pix( $post, $payload, $gateway = false ) {
-        if (isset($post['billing_persontype']) and !empty($post['billing_persontype'])){
-            $document_type = ($post['billing_persontype'] == '1')? 'cpf' : 'cnpj';
-            $document_number = ($post['billing_persontype'] == '1')? $post['billing_cpf'] : $post['billing_cnpj'];
-            $document_number = str_replace(array('.',',','-','/'), '', $document_number);
-        } else if (isset($post['billing_cpf']) and !empty($post['billing_cpf'])){
-            $document_type = 'cpf';
-            $document_number = $post['billing_cpf'];
-            $document_number = str_replace(array('.',',','-','/'), '', $document_number);
-        } else if (isset($post['billing_cnpj']) and !empty($post['billing_cnpj'])){
-            $document_type = 'cnpj';
-            $document_number = $post['billing_cnpj'];
-            $document_number = str_replace(array('.',',','-','/'), '', $document_number);
-        }
+        list($document_type, $document_number) = $this->get_document($post);
 
         $payload['paymentSource'] = array(
             "sourceType" => "customer",
@@ -52,21 +56,9 @@ class Plug_Charges_Adapter {
         return $payload;
     }      
 
-    public function to_boleto( $post, $payload, $gateway = false ) {
-        if (isset($post['billing_persontype']) and !empty($post['billing_persontype'])){
-            $document_type = ($post['billing_persontype'] == '1')? 'cpf' : 'cnpj';
-            $document_number = ($post['billing_persontype'] == '1')? $post['billing_cpf'] : $post['billing_cnpj'];
-            $document_number = str_replace(array('.',',','-','/'), '', $document_number);
-        } else if (isset($post['billing_cpf']) and !empty($post['billing_cpf'])){
-            $document_type = 'cpf';
-            $document_number = $post['billing_cpf'];
-            $document_number = str_replace(array('.',',','-','/'), '', $document_number);
-        } else if (isset($post['billing_cnpj']) and !empty($post['billing_cnpj'])){
-            $document_type = 'cnpj';
-            $document_number = $post['billing_cnpj'];
-            $document_number = str_replace(array('.',',','-','/'), '', $document_number);
-        }
 
+    public function to_boleto( $post, $payload, $gateway = null) {
+        list($document_type, $document_number) = $this->get_document($post);
         $payload['paymentSource'] = array(
             "sourceType" => "customer",
             "customer"=> array(

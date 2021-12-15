@@ -38,10 +38,11 @@ class WC_PlugPayments_API {
 			)			
 		);
 
-		$payload = call_user_func_array(array('Plug_Charges_Adapter', 'to_' . $payment_method), array($_POST, $payload, $this->gateway));
-		
-		$return = $this->gateway->sdk->post_charge( $payload );
-		if(isset($return['error'])){
+		$adapter = new Plug_Charges_Adapter();
+		$payload = call_user_func_array(array($adapter, 'to_' . $payment_method), array($_POST, $payload, $this->gateway));
+
+		$return = $this->gateway->sdk->post_charge($payload);
+		if (isset($return['error'])) {
 			$errors = array();
 			if(isset($return['error']['message'])){
 				$errors[] = __($return['error']['message'], 'woocommerce-plugpayments' );
