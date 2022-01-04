@@ -28,7 +28,8 @@ class Plug_Payments_SDK {
             CURLOPT_HTTPHEADER => array(
               'Content-Type:application/json',
               'X-Client-Id: ' . $this->clientId,
-              'X-Api-Key: ' . $this->tokenId
+              'X-Api-Key: ' . $this->tokenId,
+              'Accept-Language: '.get_locale(),
             ),
           )
         );   
