@@ -18,3 +18,8 @@
  * Adiciona versão da tela de pix para dispositivos móveis
 #### Fixes
  * Corrige a forma como se pega os documentos do formulário
+
+### 0.1.4 - 2022-01-04 ###
+
+#### News
+    * Adiciona o parâmetro Accept-Language no cabeçalho da requisição para api da plug
