@@ -84,7 +84,7 @@ class Plug_Charges_Adapter {
             )
         );
 
-        $this->payload['paymentMethod']['expiresDate'] = date('Y-m-d', strtotime($date. ' + '.$this->gateway->get_option( 'boleto_expires', 5 ).' days'));
+        $this->payload['paymentMethod']['expiresDate'] = date('Y-m-d', strtotime(' + '.$this->gateway->get_option( 'boleto_expires', 5 ).' days'));
         $this->payload['paymentMethod']['instructions'] = $this->gateway->get_option( 'boleto_instructions', 'Instruções para pagamento do boleto' );
         $this->payload['paymentMethod']['interest'] = array(
             "days"=> intval($this->gateway->get_option( 'interest_days', '5' )),
