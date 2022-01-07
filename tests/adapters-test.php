@@ -1,7 +1,11 @@
 <?php
 require "tests/mocks/api.php";
 require "tests/mocks/order.php";
-require "wp-content/plugins/woocommerce-plug-payments/includes/adapters/class-plug-charges-adapter.php";
+
+if(is_dir("src"))
+  require "src/plugins/woocommerce-plug-payments/includes/adapters/class-plug-charges-adapter.php";
+else
+  require "wp-content/plugins/woocommerce-plug-payments/includes/adapters/class-plug-charges-adapter.php";
 
 use PHPUnit\Framework\TestCase;
 
