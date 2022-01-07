@@ -12,3 +12,22 @@ jobs:
          uses: php-actions/composer@v5
        - name: Running tests
          uses: php-actions/phpunit@v3
+   build:
+     runs-on: ubuntu-latest
+
+     steps:
+       - uses: actions/checkout@v2
+       - uses: actions/setup-node@v1
+       - name: Run Gulp    
+         with:
+           node-version: 12
+       - run: npm install
+       - run: npm run start   
+       - uses: papeloto/action-zip@v1
+         with:
+           files: src/plugins/woocommerce-plug-payments/
+           dest: woocommerce-plug-payments.zip  
+       - uses: actions/upload-artifact@v1
+         with:
+           name: woocommerce-plug-payments
+           path: ${{ github.workspace }}/woocommerce-plug-payments.zip                     
