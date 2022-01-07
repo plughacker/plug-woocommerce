@@ -21,8 +21,8 @@ jobs:
        - name: Run Gulp    
          with:
            node-version: 12
-       - run: npm install
-       - run: npm run start   
+         run: npm install
+         run: npm run start   
        - uses: papeloto/action-zip@v1
          with:
            files: src/plugins/woocommerce-plug-payments/
