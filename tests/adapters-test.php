@@ -1,112 +1,42 @@
 <?php
-require "wp-load.php";
+require "tests/mocks/api.php";
+require "tests/mocks/order.php";
+require "wp-content/plugins/woocommerce-plug-payments/includes/adapters/class-plug-charges-adapter.php";
 
 use PHPUnit\Framework\TestCase;
 
-class MockGateway{
-  public function get_option($key, $default){
-    return $default;
-  }
-}
-
 class AdaptersTest extends TestCase{
   public function testCredit(){
-    $post = [
-      'plugpayments_card_installments' => '2',
-      'plugpayments_card_number' => '5261424250184574', //fake
-      'plugpayments_card_cvv' => '321',
-      'plugpayments_card_expiry' => '06/2028',
-      'plugpayments_card_holder_name' => 'JOAO DA SILVA'
-    ]; 
-    
-    $payload = call_user_func_array(array('Plug_Charges_Adapter', 'to_credit'), array($post, $payload));
+    $input = json_decode( file_get_contents("tests/payloads/credit/input.json"), true);
+    $output = json_decode( file_get_contents("tests/payloads/credit/output.json"), true);
 
-    $this->assertEquals($payload, [
-      'paymentSource' => [
-        'sourceType' => "card",
-        'card' => [
-          'cardNumber' => "5261424250184574",
-          'cardCvv' => "321",
-          'cardExpirationDate' => "06/2028",
-          'cardHolderName' => "JOAO DA SILVA",
-        ]
-      ],
-      'paymentMethod' => [
-        'installments' => 2
-      ]    
-    ]);
+    $adapter = new Plug_Charges_Adapter( new MockAPI(), new MockOrder(), $input);
+
+    $adapter->to_credit($input);
+
+    $this->assertEquals($adapter->payload, $output);
   }
 
   public function testPix(){
-    $post = [
-      'billing_persontype' => 1,
-      'billing_cpf' => "049.510.800-60", //fake
-      'billing_phone' => '(88) 98888999',
-      'billing_email' => 'test@plugpagamentos.com',
-      'billing_first_name' => 'Testador',
-      'billing_last_name' => 'Plug'
-    ];
+    $input = json_decode( file_get_contents("tests/payloads/pix/input.json"), true);
+    $output = json_decode( file_get_contents("tests/payloads/pix/output.json"), true);
 
-    $payload = call_user_func_array(array('Plug_Charges_Adapter', 'to_pix'), array($post, $payload));
+    $adapter = new Plug_Charges_Adapter( new MockAPI(), new MockOrder(), $input);
 
-    $this->assertEquals($payload, [
-      'paymentSource' => [
-        'sourceType' => "customer",
-        'customer' => [
-          'name' => "Testador Plug",
-          'phoneNumber' => "(88) 98888999",
-          'email' => "test@plugpagamentos.com",
-          'document' => [
-            'number' => '04951080060',
-            'type' => 'cpf'
-          ],
-        ]
-      ],
-      'paymentMethod' => [
-        'expiresIn' => 3600
-      ]    
-    ]);
+    $adapter->to_pix($input);
+
+    $this->assertEquals($adapter->payload, $output);
   }
 
 
-  public function testBoleto(){
-    $post = [
-      'billing_persontype' => 1,
-      'billing_cpf' => "049.510.800-60", //fake
-      'billing_phone' => '(88) 98888999',
-      'billing_email' => 'test@plugpagamentos.com',
-      'billing_first_name' => 'Testador',
-      'billing_last_name' => 'Plug'
-    ];
+  public function testBoleto(){    
+    $input = json_decode( file_get_contents("tests/payloads/boleto/input.json"), true);
+    $output = json_decode( file_get_contents("tests/payloads/boleto/output.json"), true);
 
-    $gateway = new MockGateway();
-    $payload = call_user_func_array(array('Plug_Charges_Adapter', 'to_boleto'), array($post, $payload, $gateway));
+    $adapter = new Plug_Charges_Adapter( new MockAPI(), new MockOrder(), $input);
 
-    $this->assertEquals($payload, [
-      'paymentSource' => [
-        'sourceType' => "customer",
-        'customer' => [
-          'name' => "Testador Plug",
-          'phoneNumber' => "(88) 98888999",
-          'email' => "test@plugpagamentos.com",
-          'document' => [
-            'number' => '04951080060',
-            'type' => 'cpf'
-          ],
-        ]
-      ],
-      'paymentMethod' => [
-        'expiresDate' => '2021-10-19',
-        'instructions' => 'Instruções para pagamento do boleto',
-        'interest' => [
-          'days' => 5,
-          'amount' => 5,
-        ],
-        'fine' => [
-          'days' => 5,
-          'amount' => 5
-        ],
-      ]    
-    ]);
+    $adapter->to_boleto($input);
+    
+    $this->assertEquals($adapter->payload, $output);
   }
 }

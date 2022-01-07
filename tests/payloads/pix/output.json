@@ -1,0 +1,23 @@
+{
+    "merchantId":"61aed09b-e369-453f-b707-5a1b66c9de7e",
+    "amount":"1000",
+    "statementDescriptor":null,
+    "capture":true,
+    "orderId":"14",
+    "paymentMethod":{
+        "paymentType":"pix",
+        "expiresIn":3600
+    },
+    "paymentSource":{
+        "sourceType":"customer",
+        "customer":{
+            "name":"Antonio Alves",
+            "phoneNumber":"(88) 99901-8817",
+            "email":"geekdoagrest@gmail.com",
+            "document":{
+                "number":"55015337078",
+                "type":"cpf"
+            }
+        }
+    }
+}
