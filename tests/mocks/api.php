@@ -1,5 +1,7 @@
 <?php 
 class MockGateway{
+    public $statement_descriptor;
+
     public function get_option($key, $default){
       return $default;
     }
