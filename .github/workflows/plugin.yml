@@ -27,4 +27,4 @@ jobs:
        - uses: actions/upload-artifact@v1
          with:
            name: woocommerce-plug-payments
-           path: ${{ github.workspace }}/woocommerce-plug-payments.zip                     
+           path: ${{ github.workspace }}/src/plugins/woocommerce-plug-payments                   
