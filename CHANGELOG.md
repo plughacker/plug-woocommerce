@@ -23,3 +23,10 @@
 
 #### News
     * Adiciona o parâmetro Accept-Language no cabeçalho da requisição para api da plug
+
+### 0.1.5 - 2022-01-10 ###
+
+#### News
+    * Melhora nos testes unitários
+    * Implementação do CI para deploy 
+    * Adicionado o phplint

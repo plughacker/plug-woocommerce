@@ -50,3 +50,7 @@ Mais informações sobre nossa API pode consultar a [documentação](https://doc
 ## Testes ##
 
 Para rodar os testes unitários utilize o comando: php vendor/bin/phpunit dentro do containner do wordpress
+
+## Lint ##
+
+Para rodar o Lint utilize o comando: php vendor/bin/phplint dentro do containner do wordpress

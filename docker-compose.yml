@@ -31,6 +31,7 @@ services:
       - mysql   
     volumes:
       - ./phpunit.xml:/var/www/html/phpunit.xml    
+      - ./.phplint.yml:/var/www/html/.phplint.yml   
       - ./tests:/var/www/html/tests     
       - ./vendor:/var/www/html/vendor
       - ./src/plugins:/var/www/html/wp-content/plugins
@@ -46,4 +47,4 @@ services:
     image: composer:1.9.3
     volumes:
       - .:/app
-    command: install   
+    command: require overtrue/phplint  
