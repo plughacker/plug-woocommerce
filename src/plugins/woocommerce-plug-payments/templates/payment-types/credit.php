@@ -20,7 +20,7 @@
     <p id="plugpayments-card-installments-field" class="form-row form-row-first">
         <label for="plugpayments-card-installments"><?php _e( 'Installments', 'woocommerce-plugpayments' ); ?><span class="required">*</span><br /><small>(<?php echo sprintf(__( 'the minimum value of the installment is %s.', 'woocommerce-plugpayments' ), 'R$ '. $minimum_installment .',00'); ?>)</small></label>
         <?php
-            $installments = floor($cart_total / $minimum_installment);            
+            $installments = ceil($cart_total / $minimum_installment);            
         ?>
         <select id="plugpayments-card-installments" name="plugpayments_card_installments" style="font-size: 1.5em; padding: 4px; width: 100%;">
             <?php 

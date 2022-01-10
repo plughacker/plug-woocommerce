@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node_modules/gulp/bin/gulp.js develop",
-    "build": "docker build -t frames .",
+    "build": "node_modules/gulp/bin/gulp.js build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Morais Junior",

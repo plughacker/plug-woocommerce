@@ -2,13 +2,13 @@
 defined( 'ABSPATH' ) || exit;
 
 class WC_PlugPayments_API {
-	protected $gateway;
+	public $gateway;
 
 	public function __construct( $gateway = null ) {
-		$this->gateway = $gateway;
+		$this->gateway = $gateway;		
 	}  
 
-	protected function money_format( $value ) {
+	public function money_format( $value ) {
 		return intval(str_replace(array(' ', ',', '.'), '', $value));
 	}
 
@@ -25,23 +25,12 @@ class WC_PlugPayments_API {
 
 		$_POST['plugpayments_card_expiry'] = str_replace(array(' '), '', $_POST['plugpayments_card_expiry']);		
 		$_POST['plugpayments_card_number'] = str_replace(array(' '), '', $_POST['plugpayments_card_number']);	
-        //process
 
-		$payload = array(
-			"merchantId"=> $this->gateway->get_merchantId(),
-			"amount"=> $this->money_format( $order->get_total() ),
-			"statementDescriptor"=> $this->gateway->statement_descriptor,
-			"capture"=> true,
-			"orderId"=> $order->get_order_number(),
-			"paymentMethod"=> array(
-				"paymentType"=> $posted['paymentType']
-			)			
-		);
+		$adapter = new Plug_Charges_Adapter( $this, $order, $_POST);
 
-		$adapter = new Plug_Charges_Adapter();
-		$payload = call_user_func_array(array($adapter, 'to_' . $payment_method), array($_POST, $payload, $this->gateway));
+		call_user_func_array(array($adapter, 'to_' . $payment_method), array($_POST));
 
-		$return = $this->gateway->sdk->post_charge($payload);
+		$return = $this->gateway->sdk->post_charge($adapter->payload);
 		if (isset($return['error'])) {
 			$errors = array();
 			if(isset($return['error']['message'])){

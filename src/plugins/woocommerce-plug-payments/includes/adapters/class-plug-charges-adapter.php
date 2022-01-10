@@ -1,5 +1,21 @@
 <?php
 class Plug_Charges_Adapter {
+    public $gateway, $payload;
+
+	public function __construct($api, $order, $post) {
+        $this->gateway = $api->gateway;
+
+		$this->payload = array(
+			"merchantId"=> $this->gateway->get_merchantId(),
+			"amount"=> $api->money_format( $order->get_total() ),
+			"statementDescriptor"=> $this->gateway->statement_descriptor,
+			"capture"=> true,
+			"orderId"=> $order->get_order_number(),
+			"paymentMethod"=> array(
+				"paymentType"=> $post['paymentType']
+			)			
+		);        
+    }
 
     private function get_document( $post ) {
         if (isset($post['billing_persontype']) and !empty($post['billing_persontype'])){
@@ -16,11 +32,10 @@ class Plug_Charges_Adapter {
         return array($document_type, $document_number);
     }
 
-    public function to_credit( $post, $payload, $gateway = false ) {
-        
+    public function to_credit( $post ) {
         if(!isset($post['plugpayments_card_installments'])) $post['plugpayments_card_installments'] = "1";
 
-        $payload['paymentSource'] = array(
+        $this->payload['paymentSource'] = array(
             "sourceType" => "card",
             "card"=> array(
                 "cardNumber"=> $post['plugpayments_card_number'],
@@ -30,15 +45,13 @@ class Plug_Charges_Adapter {
             )
         );
 
-        $payload['paymentMethod']['installments'] = intval($post['plugpayments_card_installments']);
-
-        return $payload;
+        $this->payload['paymentMethod']['installments'] = intval($post['plugpayments_card_installments']);
     }
 
-    public function to_pix( $post, $payload, $gateway = false ) {
+    public function to_pix( $post ) {
         list($document_type, $document_number) = $this->get_document($post);
 
-        $payload['paymentSource'] = array(
+        $this->payload['paymentSource'] = array(
             "sourceType" => "customer",
             "customer"=> array(
                 "name"=> $post['billing_first_name'] . ' ' . $post['billing_last_name'],
@@ -51,15 +64,14 @@ class Plug_Charges_Adapter {
             )
         );
 
-        $payload['paymentMethod']['expiresIn'] = 3600;
-
-        return $payload;
+        $this->payload['paymentMethod']['expiresIn'] = 3600;
     }      
 
 
-    public function to_boleto( $post, $payload, $gateway = null) {
+    public function to_boleto( $post ) {
         list($document_type, $document_number) = $this->get_document($post);
-        $payload['paymentSource'] = array(
+
+        $this->payload['paymentSource'] = array(
             "sourceType" => "customer",
             "customer"=> array(
                 "name"=> $post['billing_first_name'] . ' ' . $post['billing_last_name'],
@@ -72,17 +84,15 @@ class Plug_Charges_Adapter {
             )
         );
 
-        $payload['paymentMethod']['expiresDate'] = date('Y-m-d', strtotime($date. ' + '.$gateway->get_option( 'boleto_expires', 5 ).' days'));
-        $payload['paymentMethod']['instructions'] = $gateway->get_option( 'boleto_instructions', 'Instruções para pagamento do boleto' );
-        $payload['paymentMethod']['interest'] = array(
-            "days"=> intval($gateway->get_option( 'interest_days', '5' )),
-            $gateway->get_option( 'interest_type', 'amount' )=> intval($gateway->get_option( 'interest_value', '5' ))
+        $this->payload['paymentMethod']['expiresDate'] = date('Y-m-d', strtotime(' + '.$this->gateway->get_option( 'boleto_expires', 5 ).' days'));
+        $this->payload['paymentMethod']['instructions'] = $this->gateway->get_option( 'boleto_instructions', 'Instruções para pagamento do boleto' );
+        $this->payload['paymentMethod']['interest'] = array(
+            "days"=> intval($this->gateway->get_option( 'interest_days', '5' )),
+            $this->gateway->get_option( 'interest_type', 'amount' )=> intval($this->gateway->get_option( 'interest_value', '5' ))
         );
-        $payload['paymentMethod']['fine'] = array(
-            "days"=> intval($gateway->get_option( 'fine_days', '5' )),
-            $gateway->get_option( 'fine_type', 'amount' )=> intval($gateway->get_option( 'fine_value', '5' ))
+        $this->payload['paymentMethod']['fine'] = array(
+            "days"=> intval($this->gateway->get_option( 'fine_days', '5' )),
+            $this->gateway->get_option( 'fine_type', 'amount' )=> intval($this->gateway->get_option( 'fine_value', '5' ))
         );
-
-        return $payload;
     }       
 }

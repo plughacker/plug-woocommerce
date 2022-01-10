@@ -1,5 +1,5 @@
-# Pagar.me for WooCommerce #
-**Contributors:** PlugTeam, geekdoagrest  
+# Plug Pagamentos for WooCommerce #
+**Contributors:** PlugTeam 
 **Tags:** woocommerce, plug, gateway, payment  
 **Requires at least:** 4.0  
 **Tested up to:** 5.6  
@@ -49,4 +49,4 @@ Mais informações sobre nossa API pode consultar a [documentação](https://doc
 
 ## Testes ##
 
-Para rodar os testes unitários utilize o comando vendor/bin/phpunit dentro do containner do wordpress
+Para rodar os testes unitários utilize o comando: php vendor/bin/phpunit dentro do containner do wordpress
