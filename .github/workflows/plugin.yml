@@ -22,7 +22,7 @@ jobs:
          with:
            node-version: 8
        - run: npm install
-       - run: npm run start  
+       - run: npm run build 
        - run: cd src/plugins/ 
        - run: zip -r ../../woocommerce-plug-payments.zip woocommerce-plug-payments/*
        - uses: actions/upload-artifact@v1
