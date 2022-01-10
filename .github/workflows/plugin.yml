@@ -1,6 +1,6 @@
 name: APP
 
-on: pull_request
+on: push
 
 jobs:
    tests:
@@ -12,7 +12,7 @@ jobs:
          uses: php-actions/composer@v5
        - name: Running tests
          uses: php-actions/phpunit@v3
-  lint:
+   lint:
      runs-on: ubuntu-latest
      steps:
        - uses: actions/checkout@v1
