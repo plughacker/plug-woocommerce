@@ -1,4 +1,4 @@
-# Plag Pagamentos for WooCommerce #
+# Plug Pagamentos for WooCommerce #
 **Contributors:** PlugTeam 
 **Tags:** woocommerce, plug, gateway, payment  
 **Requires at least:** 4.0  
