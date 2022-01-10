@@ -23,9 +23,9 @@ jobs:
            node-version: 8
        - run: npm install
        - run: npm run build 
-       - uses: montudor/action-zip@v1
-         with:
-           args: zip -qq -r woocommerce-plug-payments.zip -d src/plugins/woocommerce-plug-payments      
+       - run: cd src/plugins/ 
+       - run: ls
+       - run: zip -r ../../woocommerce-plug-payments.zip woocommerce-plug-payments
        - uses: actions/upload-artifact@v1
          with:
            name: woocommerce-plug-payments
