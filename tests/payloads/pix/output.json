@@ -12,8 +12,8 @@
         "sourceType":"customer",
         "customer":{
             "name":"Antonio Alves",
-            "phoneNumber":"(88) 99901-8817",
-            "email":"geekdoagrest@gmail.com",
+            "phoneNumber":"(88) 99901-0000",
+            "email":"plug@gmail.com",
             "document":{
                 "number":"55015337078",
                 "type":"cpf"

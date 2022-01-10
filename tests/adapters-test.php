@@ -9,7 +9,13 @@ else
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers Plug_Charges_Adapter::
+ */
 class AdaptersTest extends TestCase{
+  /**
+  * @covers Plug_Charges_Adapter::to_credit
+  */  
   public function testCredit(){
     $input = json_decode( file_get_contents("tests/payloads/credit/input.json"), true);
     $output = json_decode( file_get_contents("tests/payloads/credit/output.json"), true);
@@ -21,6 +27,9 @@ class AdaptersTest extends TestCase{
     $this->assertEquals($adapter->payload, $output);
   }
 
+  /**
+  * @covers Plug_Charges_Adapter::to_pix
+  */    
   public function testPix(){
     $input = json_decode( file_get_contents("tests/payloads/pix/input.json"), true);
     $output = json_decode( file_get_contents("tests/payloads/pix/output.json"), true);
@@ -32,7 +41,9 @@ class AdaptersTest extends TestCase{
     $this->assertEquals($adapter->payload, $output);
   }
 
-
+  /**
+  * @covers Plug_Charges_Adapter::to_boleto
+  */  
   public function testBoleto(){    
     $input = json_decode( file_get_contents("tests/payloads/boleto/input.json"), true);
     $output = json_decode( file_get_contents("tests/payloads/boleto/output.json"), true);
@@ -40,7 +51,7 @@ class AdaptersTest extends TestCase{
     $adapter = new Plug_Charges_Adapter( new MockAPI(), new MockOrder(), $input);
 
     $adapter->to_boleto($input);
-    
+
     $this->assertEquals($adapter->payload, $output);
   }
 }

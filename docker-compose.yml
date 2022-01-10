@@ -19,8 +19,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     depends_on:
-      - mysql    
-    restart: always
+      - mysql 
     ports:
       - 8001:80
     environment:
