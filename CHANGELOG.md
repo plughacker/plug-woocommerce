@@ -30,3 +30,6 @@
     * Melhora nos testes unitários
     * Implementação do CI para deploy 
     * Adicionado o phplint
+
+### 1.0.0 - 2022-01-11 ###
+    * Release :)

@@ -2,8 +2,8 @@
 **Contributors:** PlugTeam 
 **Tags:** woocommerce, plug, gateway, payment  
 **Requires at least:** 4.0  
-**Tested up to:** 5.6  
-**Stable tag:** 2.5.0  
+**Tested up to:** 5.8.3  
+**Stable tag:** 1.0.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -54,3 +54,7 @@ Para rodar os testes unitários utilize o comando: php vendor/bin/phpunit dentro
 ## Lint ##
 
 Para rodar o Lint utilize o comando: php vendor/bin/phplint dentro do containner do wordpress
+
+## PHP_CodeSniffer ##
+
+Para rodar o CodeSniffer utilize o comando: ./vendor/bin/phpcs wp-content/plugins/woocommerce-plug-payments dentro do containner do wordpress

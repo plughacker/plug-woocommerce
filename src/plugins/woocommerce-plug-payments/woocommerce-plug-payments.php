@@ -5,11 +5,11 @@
  * Description: Take credit card payments on your store using Plug.
  * Author: Plug Payments
  * Author URI: https://www.plugpagamentos.com/
- * Version: 0.1.5
+ * Version: 1.0.0
  * Requires at least: 4.6
- * Tested up to: 5.7
+ * Tested up to: 5.8.3
  * WC requires at least: 3.3
- * WC tested up to: 5.4
+ * WC tested up to: 5.8.3
  * Text Domain: woocommerce-plugpayments
  * Domain Path: /languages
  */
@@ -17,7 +17,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Plugin constants.
-define( 'WC_PLUGPAYMENTS_VERSION', '0.1.5' );
+define( 'WC_PLUGPAYMENTS_VERSION', '1.0.0' );
 define( 'WC_PLUGPAYMENTS_PLUGIN_FILE', __FILE__ );
 require_once dirname( __FILE__ ) . '/includes/constants/payments-types.php';
 
@@ -28,7 +28,7 @@ class WC_Plug_Payments {
 			require_once dirname( __FILE__ ) . '/sdk/plug-payments.php';
 			require_once dirname( __FILE__ ) . '/includes/class-wc-plug-api.php';
 			require_once dirname( __FILE__ ) . '/includes/class-wc-plug-gateway.php';
-			require_once dirname( __FILE__ ) . '/includes/adapters/class-plug-charges-adapter.php';
+			require_once dirname( __FILE__ ) . '/includes/class-plug-charges-adapter.php';
 
 			add_filter( 'woocommerce_payment_gateways', array( __CLASS__, 'add_gateway' ) );
 		} else {

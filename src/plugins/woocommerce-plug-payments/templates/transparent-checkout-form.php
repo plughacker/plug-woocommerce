@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php if (in_array($key, $allowedTypes)){ ?>
 
 			<label>
-				<input type="radio" name="paymentType" value="<?php echo $key; ?>">
+				<input type="radio" name="paymentType" value="<?php echo esc_attr($key); ?>">
 				<?php _e( $label, 'woocommerce-plugpayments' ); ?>
 			</label>
 			<?php
