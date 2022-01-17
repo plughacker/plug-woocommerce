@@ -1,6 +1,7 @@
 <?php
 require "tests/mocks/api.php";
 require "tests/mocks/order.php";
+require "tests/mocks/functions.php";
 
 if(is_dir("src"))
   require "src/plugins/woocommerce-plug-payments/includes/class-plug-charges-adapter.php";
