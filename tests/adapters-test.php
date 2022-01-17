@@ -3,9 +3,9 @@ require "tests/mocks/api.php";
 require "tests/mocks/order.php";
 
 if(is_dir("src"))
-  require "src/plugins/woocommerce-plug-payments/includes/adapters/class-plug-charges-adapter.php";
+  require "src/plugins/woocommerce-plug-payments/includes/class-plug-charges-adapter.php";
 else
-  require "wp-content/plugins/woocommerce-plug-payments/includes/adapters/class-plug-charges-adapter.php";
+  require "wp-content/plugins/woocommerce-plug-payments/includes/class-plug-charges-adapter.php";
 
 use PHPUnit\Framework\TestCase;
 
@@ -47,6 +47,8 @@ class AdaptersTest extends TestCase{
   public function testBoleto(){    
     $input = json_decode( file_get_contents("tests/payloads/boleto/input.json"), true);
     $output = json_decode( file_get_contents("tests/payloads/boleto/output.json"), true);
+    
+    $output['paymentMethod']['expiresDate'] = date('Y-m-d', strtotime('+5 days'));
 
     $adapter = new Plug_Charges_Adapter( new MockAPI(), new MockOrder(), $input);
 

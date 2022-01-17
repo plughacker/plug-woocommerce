@@ -8,6 +8,7 @@
         }
     },
     "require": {
-        "overtrue/phplint": "^3.0"
+        "overtrue/phplint": "^3.0",
+        "squizlabs/php_codesniffer": "^3.6"
     }
 }

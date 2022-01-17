@@ -21,10 +21,7 @@ class WC_PlugPayments_API {
 				'data'  => '',
 				'error' => array( '<strong>' . __( 'Plug', 'woocommerce-plugpayments' ) . '</strong>: ' .  __( 'Please, select a payment method.', 'woocommerce-plugpayments' ) ),
 			);
-		}
-
-		$_POST['plugpayments_card_expiry'] = str_replace(array(' '), '', $_POST['plugpayments_card_expiry']);		
-		$_POST['plugpayments_card_number'] = str_replace(array(' '), '', $_POST['plugpayments_card_number']);	
+		}	
 
 		$adapter = new Plug_Charges_Adapter( $this, $order, $_POST);
 
