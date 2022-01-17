@@ -19,8 +19,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     depends_on:
-      - mysql    
-    restart: always
+      - mysql 
     ports:
       - 8001:80
     environment:
@@ -32,6 +31,7 @@ services:
       - mysql   
     volumes:
       - ./phpunit.xml:/var/www/html/phpunit.xml    
+      - ./.phplint.yml:/var/www/html/.phplint.yml   
       - ./tests:/var/www/html/tests     
       - ./vendor:/var/www/html/vendor
       - ./src/plugins:/var/www/html/wp-content/plugins
@@ -42,8 +42,9 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: "true"
   composer:
     image: composer:1.9.3
     volumes:
       - .:/app
-    command: install   
+    command: install 

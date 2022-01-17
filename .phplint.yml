@@ -1,0 +1,8 @@
+path: ./wp-content/plugins/woocommerce-plug-payments
+jobs: 10
+cache: build/phplint.cache
+extensions:
+  - php
+exclude:
+  - vendor
+warning: true
