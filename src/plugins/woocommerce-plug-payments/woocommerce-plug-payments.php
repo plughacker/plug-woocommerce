@@ -10,7 +10,7 @@
  * Tested up to: 5.8.3
  * WC requires at least: 3.3
  * WC tested up to: 5.8.3
- * Text Domain: woocommerce-plugpayments
+ * Text Domain: plug-payments-gateway
  * Domain Path: /languages
  */
 
@@ -51,9 +51,9 @@ class WC_Plug_Payments {
 	}	
 
 	public static function load_plugin_textdomain() {
-		load_plugin_textdomain( 'woocommerce-plugpayments', false, "woocommerce-plug-payments/languages/" );
+		load_plugin_textdomain( 'plug-payments-gateway', false, "woocommerce-plug-payments/languages/" );
 	}	
 }   
 
 add_action( 'plugins_loaded', array( 'WC_Plug_Payments', 'init' ) );
-add_action( 'plugins_loaded', array('WC_Plug_Payments', 'load_plugin_textdomain' ) );
+add_action( 'plugins_loaded', array( 'WC_Plug_Payments', 'load_plugin_textdomain' ) );

@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<label>
 				<input type="radio" name="paymentType" value="<?php echo esc_attr($key); ?>">
-				<?php _e( $label, 'woocommerce-plugpayments' ); ?>
+				<?php _e( $label, 'plug-payments-gateway' ); ?>
 			</label>
 			<?php
 			wc_get_template(
