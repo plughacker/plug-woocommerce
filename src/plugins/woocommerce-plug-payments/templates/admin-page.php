@@ -18,7 +18,7 @@
     }    
 ?>
 
-<?php echo wpautop( $this->method_description ); ?>
+<?php echo wp_kses_post( $this->method_description ); ?>
 
 <table class="form-table">
 	<?php $this->generate_settings_html(); ?>

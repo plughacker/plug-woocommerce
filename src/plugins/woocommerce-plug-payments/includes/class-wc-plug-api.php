@@ -19,7 +19,7 @@ class WC_PlugPayments_API {
 			return array(
 				'url'   => '',
 				'data'  => '',
-				'error' => array( '<strong>' . __( 'Plug', 'woocommerce-plugpayments' ) . '</strong>: ' .  __( 'Please, select a payment method.', 'woocommerce-plugpayments' ) ),
+				'error' => array( '<strong>' . __( 'Plug', 'plug-payments-gateway' ) . '</strong>: ' .  __( 'Please, select a payment method.', 'plug-payments-gateway' ) ),
 			);
 		}	
 
@@ -31,12 +31,12 @@ class WC_PlugPayments_API {
 		if (isset($return['error'])) {
 			$errors = array();
 			if(isset($return['error']['message'])){
-				$errors[] = __($return['error']['message'], 'woocommerce-plugpayments' );
+				$errors[] = __($return['error']['message'], 'plug-payments-gateway' );
 			}
 
 			if(isset($return['error']['details'])){
 				foreach($return['error']['details'] as $error){
-					$errors[] = __($error, 'woocommerce-plugpayments' );
+					$errors[] = __($error, 'plug-payments-gateway' );
 				}
 			}
 
