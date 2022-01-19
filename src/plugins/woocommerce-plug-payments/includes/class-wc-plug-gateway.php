@@ -5,9 +5,9 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 	public function __construct() {
 		$this->id                 = 'plugpayments';
 		$this->icon               = apply_filters( 'woocommerce_plugpayments_icon', plugins_url( 'assets/images/poweredbyplug.png', plugin_dir_path( __FILE__ ) ) );
-		$this->method_title       = __( 'Plug', 'woocommerce-plugpayments' );
-		$this->method_description = __( 'Accept payments by credit card, bank debit or banking ticket using the Plug Payments.', 'woocommerce-plugpayments' );
-		$this->order_button_text  = __( 'Pay', 'woocommerce-plugpayments' );
+		$this->method_title       = __( 'Plug', 'plug-payments-gateway' );
+		$this->method_description = __( 'Accept payments by credit card, bank debit or banking ticket using the Plug Payments.', 'plug-payments-gateway' );
+		$this->order_button_text  = __( 'Pay', 'plug-payments-gateway' );
 
 		$this->init_form_fields();
 
@@ -23,7 +23,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->webhook_secret	   = $this->get_option( 'webhook_secret', 'uuid' );
 		$this->sandbox             = $this->get_option( 'sandbox', 'no' );    
 		$this->minimum_installment = $this->get_option( 'minimum_installment', '5' );  
-		$this->allowedTypes = $this->get_allowedTypes();
+		$this->allowedTypes        = $this->get_allowedTypes();
 		
 		$this->sdk = new Plug_Payments_SDK( $this->clientId, $this->tokenId, ( 'yes' == $this->sandbox ) );	
 		$this->api = new WC_PlugPayments_API( $this );
@@ -37,90 +37,90 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'title' => array(
-				'title'       => __( 'Title', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Title', 'plug-payments-gateway' ),
 				'type'        => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-plugpayments' ),
+				'description' => __( 'This controls the title which the user sees during checkout.', 'plug-payments-gateway' ),
 				'desc_tip'    => true,
-				'default'     => __( 'PlugPayments', 'woocommerce-plugpayments' ),
+				'default'     => __( 'PlugPayments', 'plug-payments-gateway' ),
 			),
 			'description' => array(
-				'title'       => __( 'Description', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Description', 'plug-payments-gateway' ),
 				'type'        => 'textarea',
-				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-plugpayments' ),
-				'default'     => __( 'Pay via Plug', 'woocommerce-plugpayments' ),
+				'description' => __( 'This controls the description which the user sees during checkout.', 'plug-payments-gateway' ),
+				'default'     => __( 'Pay via Plug', 'plug-payments-gateway' ),
 			),
 			'minimum_installment' => array(
-				'title'       => __( 'Minimum value of the installment', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Minimum value of the installment', 'plug-payments-gateway' ),
 				'type'        => 'number',
-				'description' => __( 'Please enter your minimum value of the installment', 'woocommerce-plugpayments' ),
+				'description' => __( 'Please enter your minimum value of the installment', 'plug-payments-gateway' ),
 				'default'     => '',
 			),			
 			'integration' => array(
-				'title'       => __( 'Integration', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Integration', 'plug-payments-gateway' ),
 				'type'        => 'title',
 				'description' => '',
 			),
 			'clientId' => array(
-				'title'       => __( 'X-Client-Id', 'woocommerce-plugpayments' ),
+				'title'       => __( 'X-Client-Id', 'plug-payments-gateway' ),
 				'type'        => 'text',
-				'description' => __( 'Please enter your Plug email address. This is needed in order to take payment.', 'woocommerce-plugpayments' ),
+				'description' => __( 'Please enter your Plug email address. This is needed in order to take payment.', 'plug-payments-gateway' ),
 				'desc_tip'    => true,
 				'default'     => '',
             ),
 			'tokenId' => array(
-				'title'       => __( 'X-Api-Key', 'woocommerce-plugpayments' ),
+				'title'       => __( 'X-Api-Key', 'plug-payments-gateway' ),
 				'type'        => 'text',
-				'description' => __( 'Please enter your Plug email address. This is needed in order to take payment.', 'woocommerce-plugpayments' ),
+				'description' => __( 'Please enter your Plug email address. This is needed in order to take payment.', 'plug-payments-gateway' ),
 				'desc_tip'    => true,
 				'default'     => '',
             ),			
 			'merchantId' => array(
-				'title'       => __( 'MerchantId', 'woocommerce-plugpayments' ),
+				'title'       => __( 'MerchantId', 'plug-payments-gateway' ),
 				'type'        => 'text',
-				'description' => __( 'Please enter your Plug email address. This is needed in order to take payment.', 'woocommerce-plugpayments' ),
+				'description' => __( 'Please enter your Plug email address. This is needed in order to take payment.', 'plug-payments-gateway' ),
 				'desc_tip'    => true,
 				'default'     => '',
             ),						
 			'sandbox' => array(
-				'title'       => __( 'Sandbox', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Sandbox', 'plug-payments-gateway' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Enable Plug Sandbox', 'woocommerce-plugpayments' ),
+				'label'       => __( 'Enable Plug Sandbox', 'plug-payments-gateway' ),
 				'desc_tip'    => true,
 				'default'     => 'no',
-				'description' => __( 'Plug Sandbox can be used to test the payments.', 'woocommerce-plugpayments' ),
+				'description' => __( 'Plug Sandbox can be used to test the payments.', 'plug-payments-gateway' ),
 			),
 			'merchantId' => array(
-				'title'       => __( 'MerchantId', 'woocommerce-plugpayments' ),
+				'title'       => __( 'MerchantId', 'plug-payments-gateway' ),
 				'type'        => 'text',
-				'description' => __( 'Please enter your Plug email address. This is needed in order to take payment.', 'woocommerce-plugpayments' ),
+				'description' => __( 'Please enter your Plug email address. This is needed in order to take payment.', 'plug-payments-gateway' ),
 				'desc_tip'    => true,
 				'default'     => '',
             ),
 			'sandbox_merchantId' => array(
-				'title'       => __( 'Sandbox MerchantId', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Sandbox MerchantId', 'plug-payments-gateway' ),
 				'type'        => 'text',
-				'description' => __( 'Please enter your Plug sandbox merchantId', 'woocommerce-plugpayments' ),
+				'description' => __( 'Please enter your Plug sandbox merchantId', 'plug-payments-gateway' ),
 				'default'     => '',
 			),
 			'behavior' => array(
-				'title'       => __( 'Integration Behavior', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Integration Behavior', 'plug-payments-gateway' ),
 				'type'        => 'title',
 				'description' => '',
 			),
 			'statement_descriptor' => array(
-				'title'       => __( 'Statement descriptor', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Statement descriptor', 'plug-payments-gateway' ),
 				'type'        => 'text',
-				'description' => __( 'Please enter a statement descriptor.', 'woocommerce-plugpayments' ),
+				'description' => __( 'Please enter a statement descriptor.', 'plug-payments-gateway' ),
 				'default'     => 'WC-',
 			),
 			'webhook_secret' => array(
-				'title'       => __( 'Webhook Secret', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Webhook Secret', 'plug-payments-gateway' ),
 				'type'        => 'text',
-				'description' => sprintf(__( 'Please enter a Webhook Secret, use: %s', 'woocommerce-plugpayments' ), WC()->api_request_url( 'WC_PlugPayments_Gateway' ) . '?secret=' . $this->get_option( 'webhook_secret', 'uuid' )),
+				'description' => sprintf(__( 'Please enter a Webhook Secret, use: %s', 'plug-payments-gateway' ), WC()->api_request_url( 'WC_PlugPayments_Gateway' ) . '?secret=' . $this->get_option( 'webhook_secret', 'uuid' )),
 				'default'     => 'uuid',
 			),			
 			'transparent_checkout' => array(
-				'title'       => __( 'Transparent Checkout Options', 'woocommerce-plugpayments' ),
+				'title'       => __( 'Transparent Checkout Options', 'plug-payments-gateway' ),
 				'type'        => 'title',
 				'description' => '',
 			),			
@@ -128,9 +128,9 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		
 		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
 			$this->form_fields["allow_$key"] = array(
-				'title'   => __( $label, 'woocommerce-plugpayments' ),
+				'title'   => __( $label, 'plug-payments-gateway' ),
 				'type'    => 'checkbox',
-				'label'   => __( "Enable $label", 'woocommerce-plugpayments' ),
+				'label'   => __( "Enable $label", 'plug-payments-gateway' ),
 				'default' => 'yes',
 			);
 		}	
@@ -138,7 +138,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
 			if(file_exists(dirname( __FILE__ ) . "/configs/$key.php")){	
 				$this->form_fields[$key] = array(
-					'title'       => __( "$label Options", 'woocommerce-plugpayments' ),
+					'title'       => __( "$label Options", 'plug-payments-gateway' ),
 					'type'        => 'title',
 					'description' => '',
 				);						
@@ -149,7 +149,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 
 	public function ipn_validate($data) {		
 		if(!$data || $_GET['secret'] != $this->webhook_secret){
-			wp_die( esc_html__( 'Plug Request Unauthorized', 'woocommerce-plugpayments' ), esc_html__( 'Plug Request Unauthorized', 'woocommerce-plugpayments' ), array( 'response' => 401 ) );
+			wp_die( esc_html__( 'Plug Request Unauthorized', 'plug-payments-gateway' ), esc_html__( 'Plug Request Unauthorized', 'plug-payments-gateway' ), array( 'response' => 401 ) );
 		}else{
 			header( 'HTTP/1.1 200 OK' );
 		}
@@ -201,7 +201,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 
 		$description = $this->get_description();
 		if ( $description ) {
-			echo wpautop( wptexturize( $description ) ); // WPCS: XSS ok.
+			echo wp_kses_post( $description );
 		}
 
 		$cart_total = $this->get_order_total();
@@ -246,28 +246,28 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 	public function update_order_status( $order, $payment ) {
 		switch ( $payment['status'] ) {
 			case 'authorized':
-				$order->update_status( 'processing', __( 'Plug: Payment approved.', 'woocommerce-plugpayments' ) );
-				$order->add_order_note( __( 'Plug: Payment approved.', 'woocommerce-plugpayments' ) );
+				$order->update_status( 'processing', __( 'Plug: Payment approved.', 'plug-payments-gateway' ) );
+				$order->add_order_note( __( 'Plug: Payment approved.', 'plug-payments-gateway' ) );
 				wc_reduce_stock_levels( $order->get_order_number() );				
 				break;
 			case 'pre_authorized':
-				$order->update_status( 'on-hold', __( 'Plug: Payment is pre-authorized', 'woocommerce-plugpayments' ) );				
+				$order->update_status( 'on-hold', __( 'Plug: Payment is pre-authorized', 'plug-payments-gateway' ) );				
 				break;
 			case 'pending':				
-				$order->update_status( 'pending"', __( 'Plug: Payment is pending', 'woocommerce-plugpayments' ) );	
+				$order->update_status( 'pending"', __( 'Plug: Payment is pending', 'plug-payments-gateway' ) );	
 				break;
 			case 'failed':				
-				$order->update_status( 'failed', __( 'Plug: Payment is failed', 'woocommerce-plugpayments' ) );	
+				$order->update_status( 'failed', __( 'Plug: Payment is failed', 'plug-payments-gateway' ) );	
 				break;
 			case 'canceled':				
-				$order->update_status( 'failed', __( 'Plug: Payment is canceled', 'woocommerce-plugpayments' ) );	
+				$order->update_status( 'failed', __( 'Plug: Payment is canceled', 'plug-payments-gateway' ) );	
 				break;
 			case 'voided':
-				$order->update_status( 'refunded', __( 'Plug: Payment refunded', 'woocommerce-plugpayments' ) );
+				$order->update_status( 'refunded', __( 'Plug: Payment refunded', 'plug-payments-gateway' ) );
 				wc_increase_stock_levels( $order->get_order_number() );
 				break;	
 			case 'charged_back':
-				$order->update_status( 'refunded', __( 'Plug: Payment came into dispute.', 'woocommerce-plugpayments' ) );							
+				$order->update_status( 'refunded', __( 'Plug: Payment came into dispute.', 'plug-payments-gateway' ) );							
 				break;																			
 			default:
 				break;				
@@ -325,7 +325,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		}else{
 			if(!isset($response['error']) || empty($response['error'])){
 				$errors = array( 
-					__( 'Internal error :(', 'woocommerce-plugpayments' ) 
+					__( 'Internal error :(', 'plug-payments-gateway' ) 
 				);
 			}
 			
@@ -341,11 +341,11 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 	}
 
 	public function receipt_page( $order_id ) {
-		$order        = wc_get_order( $order_id );
+		$order = wc_get_order( $order_id );
 
-		$paymentType = $order->get_meta( 'paymentType');
-		$paymentStatus =  $order->get_meta( 'paymentStatus');
-		$paymentData =  $order->get_meta( 'paymentData');
+		$paymentType   = $order->get_meta( 'paymentType' );
+		$paymentStatus = $order->get_meta( 'paymentStatus' );
+		$paymentData   = $order->get_meta( 'paymentData' );
 
 		wc_get_template(
 			"receipt/$paymentType.php", array(

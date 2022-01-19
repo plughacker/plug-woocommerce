@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: woocommerce-plugpayments\n"
+"Project-Id-Version: plug-payments-gateway\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-"
 "pagseguro\n"
 "POT-Creation-Date: 2021-11-08 14:37-0300\n"
