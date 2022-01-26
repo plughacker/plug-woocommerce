@@ -1,4 +1,4 @@
-<div id="plugpayments-credit-form" class="plugpayments-method-form">
+<div id="plugpayments-credit-form" class="plugpayments-method-form">     
     <p id="plugpayments-card-holder-name-field" class="form-row form-row-first">
         <label for="plugpayments-card-holder-name"><?php _e( 'Card Holder Name', 'plug-payments-gateway' ); ?> <small>(<?php _e( 'as recorded on the card', 'plug-payments-gateway' ); ?>)</small> <span class="required">*</span></label>
         <input id="plugpayments-card-holder-name" name="plugpayments_card_holder_name" class="input-text" type="text" autocomplete="off" style="font-size: 1.5em; padding: 8px;" />
@@ -25,8 +25,10 @@
                 $installments = ceil($cart_total / $minimum_installment); 
 
                 for ($i = 1; $i <= $installments; $i++) {
-                    $installments_amount = number_format( ($cart_total / $i), 2, ',', '.' );
-                    echo wp_kses("<option value='$i'>$i x (R$ $installments_amount)</option>", $allowedHTML);
+                    if($i <= $maximum_installment){
+                        $installments_amount = number_format( ($cart_total / $i), 2, ',', '.' );
+                        echo wp_kses("<option value='$i'>$i x (R$ $installments_amount)</option>", $allowedHTML);
+                    }
                 }
             ?>            
         </select>

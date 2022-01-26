@@ -77,10 +77,10 @@ class Plug_Charges_Adapter {
         $boleto_expires = sanitize_text_field($this->gateway->get_option( 'boleto_expires', 5 ));
         $boleto_instructions = $this->gateway->get_option( 'boleto_instructions', 'Instruções para pagamento do boleto' );
         $boleto_instructions = sanitize_text_field($boleto_instructions);
-        $interest_days = sanitize_text_field(intval($this->gateway->get_option( 'interest_days', 5 )));
-        $interest_value = sanitize_text_field(intval($this->gateway->get_option( 'interest_value', 5 )));
-        $fine_value = sanitize_text_field(intval($this->gateway->get_option( 'fine_value', 5 )));
-        $fine_days = sanitize_text_field(intval($this->gateway->get_option( 'fine_days', 5 )));
+        $interest_days = intval(sanitize_text_field($this->gateway->get_option( 'interest_days', 5 )));
+        $interest_value = intval(sanitize_text_field($this->gateway->get_option( 'interest_value', 5 )));
+        $fine_value = intval(sanitize_text_field($this->gateway->get_option( 'fine_value', 5 )));
+        $fine_days = intval(sanitize_text_field($this->gateway->get_option( 'fine_days', 5 )));
 
         list($document_type, $document_number) = $this->get_document($post);
 
