@@ -338,7 +338,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 			}
 			
 			foreach ( $response['error'] as $error ) {
-				wc_add_notice( $error, 'error' );
+				wc_add_notice( _($error, 'plug-payments-gateway' ), 'error' );
 			}
 	
 			return array(

@@ -1,17 +1,17 @@
 # Plug Pagamentos for WooCommerce #
-**Contributors:** PlugTeam 
+**Contributors:** PlugTeam
 **Tags:** woocommerce, plug, gateway, payment  
-**Requires at least:** 4.0  
+**Requires at least:** 5.6  
 **Tested up to:** 5.8.3  
 **Stable tag:** 1.0.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-Receba pagamentos por cartão de crédito e boleto bancário utilizando a [Plug](https://www.plugpagamentos.com/?lang=en).
+## Description ##
+
+Receba pagamentos por cartão de crédito, boleto bancário e pix utilizando a [Plug](https://www.plugpagamentos.com/?lang=en).
 
 [![Gif Plug](https://static.wixstatic.com/media/656f2b_07e76b8231da4491880ac7a7981fb0ff~mv2.gif "Gif Plug")](https://www.plugpagamentos.com/ "Gif Plug")
-
-## Description ##
 
 ### Compatibilidade ###
 

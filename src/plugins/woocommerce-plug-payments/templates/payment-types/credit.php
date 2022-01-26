@@ -1,4 +1,4 @@
-<div id="plugpayments-credit-form" class="plugpayments-method-form">
+<div id="plugpayments-credit-form" class="plugpayments-method-form">     
     <p id="plugpayments-card-holder-name-field" class="form-row form-row-first">
         <label for="plugpayments-card-holder-name"><?php _e( 'Card Holder Name', 'plug-payments-gateway' ); ?> <small>(<?php _e( 'as recorded on the card', 'plug-payments-gateway' ); ?>)</small> <span class="required">*</span></label>
         <input id="plugpayments-card-holder-name" name="plugpayments_card_holder_name" class="input-text" type="text" autocomplete="off" style="font-size: 1.5em; padding: 8px;" />
