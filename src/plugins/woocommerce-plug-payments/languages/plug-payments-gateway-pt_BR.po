@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: plug-payments-gateway\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-"
 "pagseguro\n"
-"POT-Creation-Date: 2021-11-08 14:37-0300\n"
-"PO-Revision-Date: 2021-11-08 17:19-0300\n"
+"POT-Creation-Date: 2022-01-26 08:05-0300\n"
+"PO-Revision-Date: 2022-01-26 08:07-0300\n"
 "Last-Translator: \n"
 "Language-Team: pt_BR <LL@li.org>\n"
 "Language: pt_BR\n"
@@ -21,11 +21,11 @@ msgstr ""
 "X-Poedit-SearchPath-1: includes\n"
 "X-Poedit-SearchPath-2: woocommerce-plug-payments.php\n"
 
-#: includes/class-wc-plug-api.php:25 includes/class-wc-plug-gateway.php:8
+#: includes/class-wc-plug-api.php:22 includes/class-wc-plug-gateway.php:8
 msgid "Plug"
 msgstr ""
 
-#: includes/class-wc-plug-api.php:25
+#: includes/class-wc-plug-api.php:22
 msgid "Please, select a payment method."
 msgstr "Por favor, selecione um método de pagamento."
 
@@ -74,15 +74,23 @@ msgid "Please enter your minimum value of the installment"
 msgstr "Informe o valor mínimo da parcela"
 
 #: includes/class-wc-plug-gateway.php:59
+msgid "Maximum number of installments"
+msgstr "Quantidade máxima de parcelas"
+
+#: includes/class-wc-plug-gateway.php:61
+msgid "Enter the maximum number of installments"
+msgstr "Informe o número máximo de parcelas"
+
+#: includes/class-wc-plug-gateway.php:65
 msgid "Integration"
 msgstr "Integração"
 
-#: includes/class-wc-plug-gateway.php:64
+#: includes/class-wc-plug-gateway.php:70
 msgid "X-Client-Id"
 msgstr ""
 
-#: includes/class-wc-plug-gateway.php:66 includes/class-wc-plug-gateway.php:73
-#: includes/class-wc-plug-gateway.php:80 includes/class-wc-plug-gateway.php:95
+#: includes/class-wc-plug-gateway.php:72 includes/class-wc-plug-gateway.php:79
+#: includes/class-wc-plug-gateway.php:86 includes/class-wc-plug-gateway.php:101
 msgid ""
 "Please enter your Plug email address. This is needed in order to take "
 "payment."
@@ -90,92 +98,93 @@ msgstr ""
 "Por favor, insira seu endereço de e-mail do Plug. Isso é necessário para "
 "receber o pagamento."
 
-#: includes/class-wc-plug-gateway.php:71
+#: includes/class-wc-plug-gateway.php:77
 msgid "X-Api-Key"
 msgstr ""
 
-#: includes/class-wc-plug-gateway.php:78 includes/class-wc-plug-gateway.php:93
+#: includes/class-wc-plug-gateway.php:84 includes/class-wc-plug-gateway.php:99
 msgid "MerchantId"
 msgstr ""
 
-#: includes/class-wc-plug-gateway.php:85
+#: includes/class-wc-plug-gateway.php:91
 msgid "Sandbox"
 msgstr ""
 
-#: includes/class-wc-plug-gateway.php:87
+#: includes/class-wc-plug-gateway.php:93
 msgid "Enable Plug Sandbox"
 msgstr "Habilitar Plug Sandbox"
 
-#: includes/class-wc-plug-gateway.php:90
+#: includes/class-wc-plug-gateway.php:96
 msgid "Plug Sandbox can be used to test the payments."
 msgstr "Plug Sandbox pode ser usado para testar os pagamentos."
 
-#: includes/class-wc-plug-gateway.php:100
+#: includes/class-wc-plug-gateway.php:106
 msgid "Sandbox MerchantId"
 msgstr "Sandbox MerchantId"
 
-#: includes/class-wc-plug-gateway.php:102
+#: includes/class-wc-plug-gateway.php:108
 msgid "Please enter your Plug sandbox merchantId"
 msgstr "Por favor, insira seu Plug sandbox merchantId"
 
-#: includes/class-wc-plug-gateway.php:106
+#: includes/class-wc-plug-gateway.php:112
 msgid "Integration Behavior"
 msgstr "Comportamento de Integração"
 
-#: includes/class-wc-plug-gateway.php:111
+#: includes/class-wc-plug-gateway.php:117
 msgid "Statement descriptor"
 msgstr "Identificação da loja"
 
-#: includes/class-wc-plug-gateway.php:113
+#: includes/class-wc-plug-gateway.php:119
 msgid "Please enter a statement descriptor."
 msgstr ""
 "Essa identificação aparecerá na fatura do cartão do seu cliente (statement "
 "descriptor)."
 
-#: includes/class-wc-plug-gateway.php:118
+#: includes/class-wc-plug-gateway.php:123
 msgid "Webhook Secret"
 msgstr "Chave de acesso para validar o Webhook"
 
-#: includes/class-wc-plug-gateway.php:120
+#: includes/class-wc-plug-gateway.php:125
 #, php-format
 msgid "Please enter a Webhook Secret, use: %s"
 msgstr ""
 "Insira uma chave de acesso para o Webhook, pode ser um valor aleatório que "
 "só você conhece, depois cadastre o webhook para a seguinte url: %s"
 
-#: includes/class-wc-plug-gateway.php:124
+#: includes/class-wc-plug-gateway.php:129
 msgid "Transparent Checkout Options"
 msgstr "Opções de check-out transparente"
 
-#: includes/class-wc-plug-gateway.php:249
+#: includes/class-wc-plug-gateway.php:255
+#: includes/class-wc-plug-gateway.php:256
 msgid "Plug: Payment approved."
 msgstr "Plug: Pagamento aprovado."
 
-#: includes/class-wc-plug-gateway.php:254
+#: includes/class-wc-plug-gateway.php:260
 msgid "Plug: Payment is pre-authorized"
 msgstr "Plug: O pagamento é pré-autorizado"
 
-#: includes/class-wc-plug-gateway.php:257
+#: includes/class-wc-plug-gateway.php:263
 msgid "Plug: Payment is pending"
 msgstr "Plug: O pagamento está pendente"
 
-#: includes/class-wc-plug-gateway.php:260
+#: includes/class-wc-plug-gateway.php:266
 msgid "Plug: Payment is failed"
 msgstr "Plug: O pagamento falhou"
 
-#: includes/class-wc-plug-gateway.php:263
+#: includes/class-wc-plug-gateway.php:269
 msgid "Plug: Payment is canceled"
 msgstr "Plug: Pagamento cancelado"
 
-#: includes/class-wc-plug-gateway.php:266
+#: includes/class-wc-plug-gateway.php:272
 msgid "Plug: Payment refunded"
 msgstr "Plug: Pagamento reembolsado"
 
-#: includes/class-wc-plug-gateway.php:270
+#: includes/class-wc-plug-gateway.php:276
 msgid "Plug: Payment came into dispute."
 msgstr "Plug: O pagamento entrou em disputa."
 
-#: includes/class-wc-plug-gateway.php:328
+#: includes/class-wc-plug-gateway.php:334
 msgid "Internal error :("
 msgstr "Erro interno :("
 
@@ -202,6 +211,14 @@ msgstr "Juros"
 #: includes/configs/boleto.php:21
 msgid "Enter the format to interest"
 msgstr "Insira o formato de juros"
+
+#: includes/configs/boleto.php:23 includes/configs/boleto.php:44
+msgid "Amount"
+msgstr "Valor"
+
+#: includes/configs/boleto.php:24 includes/configs/boleto.php:45
+msgid "Percentage"
+msgstr "Percentual"
 
 #: includes/configs/boleto.php:29
 msgid "Enter value for interest"
@@ -281,24 +298,17 @@ msgstr "Parcelas"
 msgid "the minimum value of the installment is %s."
 msgstr "o valor mínimo da parcela é R$ %s."
 
-#: templates/transparent-checkout-form.php:3
-msgid "Boleto Options"
-msgstr "Opções do Boleto"
+#~ msgid "Boleto Options"
+#~ msgstr "Opções do Boleto"
 
-msgid "Enable Credit"
-msgstr "Habilitar Crédito"
+#~ msgid "Enable Credit"
+#~ msgstr "Habilitar Crédito"
 
-msgid "Enable Pix"
-msgstr "Habilitar Pix"
+#~ msgid "Enable Pix"
+#~ msgstr "Habilitar Pix"
 
-msgid "Enable Boleto"
-msgstr "Habilitar Boleto"
+#~ msgid "Enable Boleto"
+#~ msgstr "Habilitar Boleto"
 
-msgid "Credit"
-msgstr "Crédito"
-
-msgid "Amount"
-msgstr "Valor"
-
-msgid "Percentage"
-msgstr "Percentual"
+#~ msgid "Credit"
+#~ msgstr "Crédito"

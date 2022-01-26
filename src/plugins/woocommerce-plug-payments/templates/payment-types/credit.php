@@ -25,8 +25,10 @@
                 $installments = ceil($cart_total / $minimum_installment); 
 
                 for ($i = 1; $i <= $installments; $i++) {
-                    $installments_amount = number_format( ($cart_total / $i), 2, ',', '.' );
-                    echo wp_kses("<option value='$i'>$i x (R$ $installments_amount)</option>", $allowedHTML);
+                    if($i <= $maximum_installment){
+                        $installments_amount = number_format( ($cart_total / $i), 2, ',', '.' );
+                        echo wp_kses("<option value='$i'>$i x (R$ $installments_amount)</option>", $allowedHTML);
+                    }
                 }
             ?>            
         </select>

@@ -11,7 +11,7 @@ class Plug_Payments_SDK {
             'Content-Type' => 'application/json',
             'X-Client-Id' => $this->clientId,
             'X-Api-Key' => $this->tokenId,
-            'Accept-Language' => get_locale(),
+            'Accept-Language' => str_replace('_', '-',strtolower(get_locale())),
         );
     }
 

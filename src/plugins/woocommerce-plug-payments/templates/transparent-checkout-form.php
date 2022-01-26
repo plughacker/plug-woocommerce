@@ -18,6 +18,7 @@ defined( 'ABSPATH' ) || exit;
 				"payment-types/$key.php", array(
 					'cart_total'           => $cart_total,
 					'minimum_installment'  => $minimum_installment,
+					'maximum_installment'  => $maximum_installment,
 				), 'woocommerce/plugpayments/', WC_Plug_Payments::get_templates_path()
 			);		
 			?>

@@ -23,6 +23,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->webhook_secret	   = $this->get_option( 'webhook_secret', 'uuid' );
 		$this->sandbox             = $this->get_option( 'sandbox', 'no' );    
 		$this->minimum_installment = $this->get_option( 'minimum_installment', '5' );  
+		$this->maximum_installment = $this->get_option( 'maximum_installment', '10' );  
 		$this->allowedTypes        = $this->get_allowedTypes();
 		
 		$this->sdk = new Plug_Payments_SDK( $this->clientId, $this->tokenId, ( 'yes' == $this->sandbox ) );	
@@ -53,8 +54,14 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'title'       => __( 'Minimum value of the installment', 'plug-payments-gateway' ),
 				'type'        => 'number',
 				'description' => __( 'Please enter your minimum value of the installment', 'plug-payments-gateway' ),
-				'default'     => '',
-			),			
+				'default'     => '5',
+			),	
+			'maximum_installment' => array(
+				'title'       => __( 'Maximum number of installments', 'plug-payments-gateway' ),
+				'type'        => 'number',
+				'description' => __( 'Enter the maximum number of installments', 'plug-payments-gateway' ),
+				'default'     => '10',
+			),					
 			'integration' => array(
 				'title'       => __( 'Integration', 'plug-payments-gateway' ),
 				'type'        => 'title',
@@ -210,6 +217,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 			'transparent-checkout-form.php', array(
 				'cart_total'         => $cart_total,
 				'minimum_installment'=> $this->minimum_installment,
+				'maximum_installment'=> $this->maximum_installment,
 				'allowedTypes'       => $this->allowedTypes,
 			), 'woocommerce/plugpayments/', WC_Plug_Payments::get_templates_path()
 		);
