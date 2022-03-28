@@ -34,3 +34,7 @@
 ### 1.0.0 - 2022-01-11 ###
     * Optimize for publish on wordpress
     * Release :)
+### 1.1.0 - 2022-03-28 ###
+    * Adicionado suporte ao contrato de fraudanalysis
+    * Adicionado configuração para alterar o titulo do método de pagamento
+    * Adicionado opção de debuger para facilitar o trace dos payloads 

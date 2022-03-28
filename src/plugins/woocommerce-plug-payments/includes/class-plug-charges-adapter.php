@@ -62,10 +62,10 @@ class Plug_Charges_Adapter {
 
             foreach ( $order->get_items() as $item_id => $item ) { 
                 $this->payload['fraudAnalysis']['cart']['items'][] = [
-                    'name' => $item->get_name(),
-                    'quantity' => $item->get_quantity(),
-                    'sku' => $item->get_id(),
-                    'unitPrice' => $item->get_total(),
+                    'name' => sanitize_text_field($item->get_name()),
+                    'quantity' => sanitize_text_field($item->get_quantity()),
+                    'sku' => sanitize_text_field($item->get_id()),
+                    'unitPrice' => sanitize_text_field($item->get_total()),
                     'risk' => "Low"
                 ];                
             }
