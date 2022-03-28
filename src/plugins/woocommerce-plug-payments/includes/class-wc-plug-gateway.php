@@ -22,9 +22,15 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->statement_descriptor= $this->get_option( 'statement_descriptor', 'WC-' );
 		$this->webhook_secret	   = $this->get_option( 'webhook_secret', 'uuid' );
 		$this->sandbox             = $this->get_option( 'sandbox', 'no' );    
+		$this->debuger             = $this->get_option( 'debuger', 'no' ); 
+		$this->fraudanalysis       = $this->get_option( 'fraudanalysis', 'no' ); 
 		$this->minimum_installment = $this->get_option( 'minimum_installment', '5' );  
 		$this->maximum_installment = $this->get_option( 'maximum_installment', '10' );  
 		$this->allowedTypes        = $this->get_allowedTypes();
+		$this->titleOfTypes        = [];
+		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
+			$this->titleOfTypes[$key] = $this->get_option( "title_$key", $label ); 
+		}
 		
 		$this->sdk = new Plug_Payments_SDK( $this->clientId, $this->tokenId, ( 'yes' == $this->sandbox ) );	
 		$this->api = new WC_PlugPayments_API( $this );
@@ -62,6 +68,22 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'description' => __( 'Enter the maximum number of installments', 'plug-payments-gateway' ),
 				'default'     => '10',
 			),					
+			'debuger' => array(
+				'title'       => __( 'Debuger', 'plug-payments-gateway' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Enable debuger', 'plug-payments-gateway' ),
+				'desc_tip'    => true,
+				'default'     => 'no',
+				'description' => __( 'Debuger can be used to test the payments.', 'plug-payments-gateway' ),
+			),	
+			'fraudanalysis' => array(
+				'title'       => __( 'FraudAnalysis', 'plug-payments-gateway' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Use Fraudanalysis', 'plug-payments-gateway' ),
+				'desc_tip'    => true,
+				'default'     => 'no',
+				'description' => __( 'fraudAnalysis can be used otimize payments.', 'plug-payments-gateway' ),
+			),						
 			'integration' => array(
 				'title'       => __( 'Integration', 'plug-payments-gateway' ),
 				'type'        => 'title',
@@ -140,6 +162,12 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'label'   => __( "Enable $label", 'plug-payments-gateway' ),
 				'default' => 'yes',
 			);
+			$this->form_fields["title_$key"] = array(
+				'type'    => 'text',
+				'default' => __( $label, 'plug-payments-gateway' ),
+				'description' => __( 'Please enter your title of payment type', 'plug-payments-gateway' ),
+				'desc_tip'    => true,				
+			);			
 		}	
 
 		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
@@ -219,6 +247,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'minimum_installment'=> $this->minimum_installment,
 				'maximum_installment'=> $this->maximum_installment,
 				'allowedTypes'       => $this->allowedTypes,
+				'titleOfTypes'       => $this->titleOfTypes,
 			), 'woocommerce/plugpayments/', WC_Plug_Payments::get_templates_path()
 		);
 	}	
@@ -323,8 +352,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 					'result'   => 'success',
 					'redirect' => $redirect
 				);			
-			}else{
-				wc_add_notice( array('Plug: Your payment '. $response['data']['status'] .' :('), 'error' );					
+			}else{				
 				return array(
 					'result'   => 'fail',
 					'redirect' => ''

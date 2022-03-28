@@ -6,12 +6,13 @@ defined( 'ABSPATH' ) || exit;
 	<style>.plugpayments-method-form{display: none;}</style>
 
 	<?php foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){ ?>
-
 		<?php if (in_array($key, $allowedTypes)){ ?>
-
 			<label>
 				<input type="radio" name="paymentType" value="<?php echo esc_attr($key); ?>">
-				<?php _e( $label, 'plug-payments-gateway' ); ?>
+				<?php 
+					$allowedHTML = ['span' => ['style' => []]];
+					wp_kses(_e( $titleOfTypes[$key], 'plug-payments-gateway' ), $allowedHTML);
+				?>
 			</label>
 			<?php
 			wc_get_template(
@@ -22,9 +23,6 @@ defined( 'ABSPATH' ) || exit;
 				), 'woocommerce/plugpayments/', WC_Plug_Payments::get_templates_path()
 			);		
 			?>
-
 		<?php } ?>
-
 	<?php } ?>	
-
 </fieldset>

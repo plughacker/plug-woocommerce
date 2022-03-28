@@ -34,6 +34,44 @@ class Plug_Charges_Adapter {
         return array($document_type, sanitize_text_field($document_number));
     }
 
+    public function set_fraudanalysis( $post, $order ) {
+        list($document_type, $document_number) = $this->get_document($post);
+
+        if($this->payload['paymentSource']['sourceType'] == "card"){
+            $this->payload['fraudAnalysis'] = [
+                "customer"=> [
+                    "name"=> sanitize_text_field($post['billing_first_name'] . ' ' . $post['billing_last_name']),
+                    "identity"=> sanitize_text_field($post['plugpayments_card_number']),
+                    "identityType"=> sanitize_text_field($post['plugpayments_card_number']),
+                    "email"=> sanitize_email($post['billing_email']),
+                    "phone"=> sanitize_text_field($post['billing_phone']),
+                    "billingAddress"=> [
+                        'street' => sanitize_text_field($post['billing_address_1']),
+                        'number' => sanitize_text_field($post['billing_number']),
+                        'zipCode' => sanitize_text_field($post['billing_postcode']),
+                        'city' => sanitize_text_field($post['billing_city']),
+                        'state' => sanitize_text_field($post['billing_state']),
+                        'country' => sanitize_text_field($post['billing_country']),
+                        'district' => sanitize_text_field($post['billing_address_2'])
+                    ]
+                ],
+                "cart" => [
+                    "items" => []
+                ]     
+            ];
+
+            foreach ( $order->get_items() as $item_id => $item ) { 
+                $this->payload['fraudAnalysis']['cart']['items'][] = [
+                    'name' => $item->get_name(),
+                    'quantity' => $item->get_quantity(),
+                    'sku' => $item->get_id(),
+                    'unitPrice' => $item->get_total(),
+                    'risk' => "Low"
+                ];                
+            }
+        }
+    }
+
     public function to_credit( $post ) {
         if(!isset($post['plugpayments_card_installments'])) $post['plugpayments_card_installments'] = "1";
 
