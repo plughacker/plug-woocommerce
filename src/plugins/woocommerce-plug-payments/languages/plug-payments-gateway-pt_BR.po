@@ -5,16 +5,16 @@ msgstr ""
 "Project-Id-Version: plug-payments-gateway\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-"
 "pagseguro\n"
-"POT-Creation-Date: 2022-01-26 16:16-0300\n"
-"PO-Revision-Date: 2022-01-26 16:18-0300\n"
+"POT-Creation-Date: 2022-03-28 11:04-0300\n"
+"PO-Revision-Date: 2022-03-28 11:06-0300\n"
 "Last-Translator: \n"
 "Language-Team: pt_BR <LL@li.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: templates\n"
@@ -41,56 +41,81 @@ msgstr ""
 msgid "Pay"
 msgstr "Pagar"
 
-#: includes/class-wc-plug-gateway.php:41
+#: includes/class-wc-plug-gateway.php:47
 msgid "Title"
 msgstr "Título"
 
-#: includes/class-wc-plug-gateway.php:43
+#: includes/class-wc-plug-gateway.php:49
 msgid "This controls the title which the user sees during checkout."
 msgstr "Isso controla o título que o usuário vê durante o checkout."
 
-#: includes/class-wc-plug-gateway.php:45
+#: includes/class-wc-plug-gateway.php:51
 msgid "PlugPayments"
 msgstr "Plug Pagamentos"
 
-#: includes/class-wc-plug-gateway.php:48
+#: includes/class-wc-plug-gateway.php:54
 msgid "Description"
 msgstr "Descrição"
 
-#: includes/class-wc-plug-gateway.php:50
+#: includes/class-wc-plug-gateway.php:56
 msgid "This controls the description which the user sees during checkout."
 msgstr "Isso controla a descrição que o usuário vê durante o checkout."
 
-#: includes/class-wc-plug-gateway.php:51
+#: includes/class-wc-plug-gateway.php:57
 msgid "Pay via Plug"
 msgstr "Pagamento via Plug"
 
-#: includes/class-wc-plug-gateway.php:54
+#: includes/class-wc-plug-gateway.php:60
 msgid "Minimum value of the installment"
 msgstr "Valor mínimo da parcela"
 
-#: includes/class-wc-plug-gateway.php:56
+#: includes/class-wc-plug-gateway.php:62
 msgid "Please enter your minimum value of the installment"
 msgstr "Informe o valor mínimo da parcela"
 
-#: includes/class-wc-plug-gateway.php:60
+#: includes/class-wc-plug-gateway.php:66
 msgid "Maximum number of installments"
 msgstr "Quantidade máxima de parcelas"
 
-#: includes/class-wc-plug-gateway.php:62
+#: includes/class-wc-plug-gateway.php:68
 msgid "Enter the maximum number of installments"
 msgstr "Informe o número máximo de parcelas"
 
-#: includes/class-wc-plug-gateway.php:66
+#: includes/class-wc-plug-gateway.php:72
+msgid "Debuger"
+msgstr ""
+
+#: includes/class-wc-plug-gateway.php:74
+msgid "Enable debuger"
+msgstr ""
+
+#: includes/class-wc-plug-gateway.php:77
+msgid "Debuger can be used to test the payments."
+msgstr "Debuger pode ser usado para testar os pagamentos."
+
+#: includes/class-wc-plug-gateway.php:80
+msgid "Use FraudAnalysis"
+msgstr "Utilizar FraudAnalysis"
+
+#: includes/class-wc-plug-gateway.php:82
+msgid "Use Fraudanalysis"
+msgstr "Utilizar FraudAnalysis"
+
+#: includes/class-wc-plug-gateway.php:85
+msgid "fraudAnalysis can be used otimize payments."
+msgstr "fraudAnalysis pode ser usado se estiver habilitado no gateway."
+
+#: includes/class-wc-plug-gateway.php:88
 msgid "Integration"
 msgstr "Integração"
 
-#: includes/class-wc-plug-gateway.php:71
+#: includes/class-wc-plug-gateway.php:93
 msgid "X-Client-Id"
 msgstr ""
 
-#: includes/class-wc-plug-gateway.php:73 includes/class-wc-plug-gateway.php:80
-#: includes/class-wc-plug-gateway.php:87 includes/class-wc-plug-gateway.php:102
+#: includes/class-wc-plug-gateway.php:95 includes/class-wc-plug-gateway.php:102
+#: includes/class-wc-plug-gateway.php:109
+#: includes/class-wc-plug-gateway.php:124
 msgid ""
 "Please enter your Plug email address. This is needed in order to take "
 "payment."
@@ -98,93 +123,98 @@ msgstr ""
 "Por favor, insira seu endereço de e-mail do Plug. Isso é necessário para "
 "receber o pagamento."
 
-#: includes/class-wc-plug-gateway.php:78
+#: includes/class-wc-plug-gateway.php:100
 msgid "X-Api-Key"
 msgstr ""
 
-#: includes/class-wc-plug-gateway.php:85 includes/class-wc-plug-gateway.php:100
+#: includes/class-wc-plug-gateway.php:107
+#: includes/class-wc-plug-gateway.php:122
 msgid "MerchantId"
 msgstr ""
 
-#: includes/class-wc-plug-gateway.php:92
+#: includes/class-wc-plug-gateway.php:114
 msgid "Sandbox"
 msgstr ""
 
-#: includes/class-wc-plug-gateway.php:94
+#: includes/class-wc-plug-gateway.php:116
 msgid "Enable Plug Sandbox"
 msgstr "Habilitar Plug Sandbox"
 
-#: includes/class-wc-plug-gateway.php:97
+#: includes/class-wc-plug-gateway.php:119
 msgid "Plug Sandbox can be used to test the payments."
 msgstr "Plug Sandbox pode ser usado para testar os pagamentos."
 
-#: includes/class-wc-plug-gateway.php:107
+#: includes/class-wc-plug-gateway.php:129
 msgid "Sandbox MerchantId"
 msgstr "Sandbox MerchantId"
 
-#: includes/class-wc-plug-gateway.php:109
+#: includes/class-wc-plug-gateway.php:131
 msgid "Please enter your Plug sandbox merchantId"
 msgstr "Por favor, insira seu Plug sandbox merchantId"
 
-#: includes/class-wc-plug-gateway.php:113
+#: includes/class-wc-plug-gateway.php:135
 msgid "Integration Behavior"
 msgstr "Comportamento de Integração"
 
-#: includes/class-wc-plug-gateway.php:118
+#: includes/class-wc-plug-gateway.php:140
 msgid "Statement descriptor"
 msgstr "Identificação da loja"
 
-#: includes/class-wc-plug-gateway.php:120
+#: includes/class-wc-plug-gateway.php:142
 msgid "Please enter a statement descriptor."
 msgstr ""
 "Essa identificação aparecerá na fatura do cartão do seu cliente (statement "
 "descriptor)."
 
-#: includes/class-wc-plug-gateway.php:124
+#: includes/class-wc-plug-gateway.php:146
 msgid "Webhook Secret"
 msgstr "Chave de acesso para validar o Webhook"
 
-#: includes/class-wc-plug-gateway.php:126
+#: includes/class-wc-plug-gateway.php:148
 #, php-format
 msgid "Please enter a Webhook Secret, use: %s"
 msgstr ""
 "Insira uma chave de acesso para o Webhook, pode ser um valor aleatório que "
 "só você conhece, depois cadastre o webhook para a seguinte url: %s"
 
-#: includes/class-wc-plug-gateway.php:130
+#: includes/class-wc-plug-gateway.php:152
 msgid "Transparent Checkout Options"
 msgstr "Opções de check-out transparente"
 
-#: includes/class-wc-plug-gateway.php:257
-#: includes/class-wc-plug-gateway.php:258
+#: includes/class-wc-plug-gateway.php:168
+msgid "Please enter your title of payment type"
+msgstr "Informe o titulo do meio de pagamento"
+
+#: includes/class-wc-plug-gateway.php:286
+#: includes/class-wc-plug-gateway.php:287
 msgid "Plug: Payment approved."
 msgstr "Plug: Pagamento aprovado."
 
-#: includes/class-wc-plug-gateway.php:262
+#: includes/class-wc-plug-gateway.php:291
 msgid "Plug: Payment is pre-authorized"
 msgstr "Plug: O pagamento é pré-autorizado"
 
-#: includes/class-wc-plug-gateway.php:265
+#: includes/class-wc-plug-gateway.php:294
 msgid "Plug: Payment is pending"
 msgstr "Plug: O pagamento está pendente"
 
-#: includes/class-wc-plug-gateway.php:268
+#: includes/class-wc-plug-gateway.php:297
 msgid "Plug: Payment is failed"
 msgstr "Plug: O pagamento falhou"
 
-#: includes/class-wc-plug-gateway.php:271
+#: includes/class-wc-plug-gateway.php:300
 msgid "Plug: Payment is canceled"
 msgstr "Plug: Pagamento cancelado"
 
-#: includes/class-wc-plug-gateway.php:274
+#: includes/class-wc-plug-gateway.php:303
 msgid "Plug: Payment refunded"
 msgstr "Plug: Pagamento reembolsado"
 
-#: includes/class-wc-plug-gateway.php:278
+#: includes/class-wc-plug-gateway.php:307
 msgid "Plug: Payment came into dispute."
 msgstr "Plug: O pagamento entrou em disputa."
 
-#: includes/class-wc-plug-gateway.php:336
+#: includes/class-wc-plug-gateway.php:364
 msgid "Internal error :("
 msgstr "Erro interno :("
 
@@ -252,6 +282,18 @@ msgstr "Crédito"
 msgid "Invalid CVV"
 msgstr "O código de segurança não é válido"
 
+#: includes/poedit.php:5
+msgid "Enable Credit"
+msgstr "Habilitar Crédito"
+
+#: includes/poedit.php:6
+msgid "Enable Pix"
+msgstr "Habilitar Pix"
+
+#: includes/poedit.php:7
+msgid "Enable Boleto"
+msgstr "Habilitar Boleto"
+
 #: templates/notice/missing-clientId.php:2
 #: templates/notice/missing-merchant.php:2 templates/notice/missing-token.php:2
 msgid "Plug Disabled"
@@ -308,12 +350,3 @@ msgstr "o valor mínimo da parcela é R$ %s."
 
 #~ msgid "Boleto Options"
 #~ msgstr "Opções do Boleto"
-
-#~ msgid "Enable Credit"
-#~ msgstr "Habilitar Crédito"
-
-#~ msgid "Enable Pix"
-#~ msgstr "Habilitar Pix"
-
-#~ msgid "Enable Boleto"
-#~ msgstr "Habilitar Boleto"

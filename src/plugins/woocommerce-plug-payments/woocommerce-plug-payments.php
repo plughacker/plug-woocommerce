@@ -17,7 +17,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Plugin constants.
-define( 'WC_PLUGPAYMENTS_VERSION', '1.0.0' );
+define( 'WC_PLUGPAYMENTS_VERSION', '1.1.0' );
 define( 'WC_PLUGPAYMENTS_PLUGIN_FILE', __FILE__ );
 require_once dirname( __FILE__ ) . '/includes/constants/payments-types.php';
 

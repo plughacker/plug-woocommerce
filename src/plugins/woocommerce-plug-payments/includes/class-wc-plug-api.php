@@ -27,7 +27,16 @@ class WC_PlugPayments_API {
 
 		call_user_func_array(array($adapter, 'to_' . $payment_method), array($_POST));
 
+		if( 'yes' == $this->gateway->fraudanalysis ){
+			$adapter->set_fraudanalysis($_POST, $order);
+		}
+
 		$return = $this->gateway->sdk->post_charge($adapter->payload);
+
+		if( 'yes' == $this->gateway->debuger ){
+			$order->add_order_note( 'Request: '.json_encode($adapter->payload, JSON_UNESCAPED_SLASHES), 'plug-payments-gateway' );
+			$order->add_order_note( 'Return: '.json_encode($return), 'plug-payments-gateway' );
+		}
 
 		if (isset($return['error'])) {
 			$errors = array();
