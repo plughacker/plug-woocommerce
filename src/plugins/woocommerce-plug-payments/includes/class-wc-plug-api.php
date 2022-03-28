@@ -34,7 +34,7 @@ class WC_PlugPayments_API {
 		$return = $this->gateway->sdk->post_charge($adapter->payload);
 
 		if( 'yes' == $this->gateway->debuger ){
-			$order->add_order_note( 'Request: '.json_encode($adapter->payload), 'plug-payments-gateway' );
+			$order->add_order_note( 'Request: '.json_encode($adapter->payload, JSON_UNESCAPED_SLASHES), 'plug-payments-gateway' );
 			$order->add_order_note( 'Return: '.json_encode($return), 'plug-payments-gateway' );
 		}
 
