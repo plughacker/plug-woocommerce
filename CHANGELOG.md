@@ -38,3 +38,5 @@
     * Adicionado suporte ao contrato de fraudanalysis
     * Adicionado configuração para alterar o titulo do método de pagamento
     * Adicionado opção de debuger para facilitar o trace dos payloads 
+### 1.2.0 - 2022-03-31 ###
+    * Adicionado percentual de desconto para meio de pagamento    

@@ -28,10 +28,12 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->maximum_installment = $this->get_option( 'maximum_installment', '10' );  
 		$this->allowedTypes        = $this->get_allowedTypes();
 		$this->titleOfTypes        = [];
+		$this->feeOfTypes        = [];
 		foreach(WC_PLUGPAYMENTS_PAYMENTS_TYPES as $key => $label){
 			$this->titleOfTypes[$key] = $this->get_option( "title_$key", $label ); 
+			$this->feeOfTypes[$key] = $this->get_option( "fee_$key", '0' ); 
 		}
-		
+
 		$this->sdk = new Plug_Payments_SDK( $this->clientId, $this->tokenId, ( 'yes' == $this->sandbox ) );	
 		$this->api = new WC_PlugPayments_API( $this );
 
@@ -166,7 +168,13 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'type'    => 'text',
 				'default' => __( $label, 'plug-payments-gateway' ),
 				'description' => __( 'Please enter your title of payment type', 'plug-payments-gateway' ),
-				'desc_tip'    => true,				
+				'desc_tip'    => false,				
+			);			
+			$this->form_fields["fee_$key"] = array(
+				'type'    => 'number',
+				'default' => 0,
+				'description' => __( 'Percent of discount', 'plug-payments-gateway' ),
+				'desc_tip'    => false,				
 			);			
 		}	
 
@@ -330,9 +338,43 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$order->save();		
 	}
 
+	public function set_fees($order) {
+		$fees = $order->get_fees();
+		if(!empty($fees)){
+			foreach($this->feeOfTypes as $key => $value){
+				foreach ($fees as $key => $fee) {
+					if($fees[$key]->name === __( $key . " discount" )) {
+						unset($fees[$key]);
+					}
+				}
+			}
+			$order->set_fees($fees);
+		}
+
+		$fee = $this->feeOfTypes[$_POST['paymentType']];
+		if( is_numeric($fee) && $fee != '0' ){
+			$subtotal = $order->get_subtotal();
+			$percentage = intval($fee);
+			$percentage = $percentage > 100 ? -100 : -$percentage;
+			$discount   = $percentage * $subtotal / 100;			
+
+			$fee = new WC_Order_Item_Fee();
+			$fee->set_name( $_POST['paymentType'] . " discount" );
+			$fee->set_amount($discount);
+			$fee->set_total($discount);			
+			$fee->set_tax_class('');
+			$fee->set_tax_status('none');
+
+			$order->add_item($fee);
+			$order->calculate_totals();
+			$order->save();		
+		}			
+	}
+
 	public function process_payment( $order_id ) {
-		$order = wc_get_order( $order_id );
-	
+		$order = wc_get_order( $order_id );	
+		$this->set_fees( $order ); 
+
 		$response = $this->api->payment_request( $order, $_POST );
 
 		if ( !empty($response['data']) ) {
