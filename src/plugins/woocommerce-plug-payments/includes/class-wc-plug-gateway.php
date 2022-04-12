@@ -375,12 +375,11 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$order = wc_get_order( $order_id );	
 		$this->set_fees( $order ); 
 
-		$response = $this->api->payment_request( $order, $_POST );
-
+		$response = $this->api->payment_request( $order, $_POST );	
 		if ( !empty($response['data']) ) {
 			$this->update_order_status( $order, $response['data'] );
 			$this->save_payment_meta_data( $order, $response['data'] );
-
+			
 			if( $response['data']['status']  == 'authorized' || $response['data']['status']  == 'pending') {
 				WC()->cart->empty_cart();
 
@@ -393,8 +392,16 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				return array(
 					'result'   => 'success',
 					'redirect' => $redirect
-				);			
-			}else{				
+				);	
+			}else{	
+				if( $response['data']['status']  == 'failed'){		
+					foreach ( $response['data']['transactionRequests'] as $request ) {
+						if(isset($request['providerError'])){
+							wc_add_notice( __('Unauthorized!', 'plug-payments-gateway' ) . ' ' . __($request['providerError']['declinedCode'], 'plug-payments-gateway' ), 'error' );
+						}
+					}
+				}
+
 				return array(
 					'result'   => 'fail',
 					'redirect' => ''
@@ -408,7 +415,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 			}
 			
 			foreach ( $response['error'] as $error ) {
-				wc_add_notice( _($error, 'plug-payments-gateway' ), 'error' );
+				wc_add_notice( __($error, 'plug-payments-gateway' ), 'error' );
 			}
 	
 			return array(

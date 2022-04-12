@@ -37,12 +37,16 @@ class Plug_Charges_Adapter {
     public function set_fraudanalysis( $post, $order ) {
         list($document_type, $document_number) = $this->get_document($post);
 
+        $district = sanitize_text_field($post['billing_neighborhood']);
+        if(empty($district)){$district = sanitize_text_field($post['billing_address_2']);};
+        if(empty($district)){$district = sanitize_text_field($post['billing_address_1']);};
+
         if($this->payload['paymentSource']['sourceType'] == "card"){
             $this->payload['fraudAnalysis'] = [
                 "customer"=> [
                     "name"=> sanitize_text_field($post['billing_first_name'] . ' ' . $post['billing_last_name']),
-                    "identity"=> sanitize_text_field($post['plugpayments_card_number']),
-                    "identityType"=> sanitize_text_field($post['plugpayments_card_number']),
+                    "identity"=> $document_number,
+                    "identityType"=> strtoupper($document_type),
                     "email"=> sanitize_email($post['billing_email']),
                     "phone"=> sanitize_text_field($post['billing_phone']),
                     "billingAddress"=> [
@@ -52,7 +56,7 @@ class Plug_Charges_Adapter {
                         'city' => sanitize_text_field($post['billing_city']),
                         'state' => sanitize_text_field($post['billing_state']),
                         'country' => sanitize_text_field($post['billing_country']),
-                        'district' => sanitize_text_field($post['billing_address_2'])
+                        'district' => $district,
                     ]
                 ],
                 "cart" => [
@@ -63,9 +67,9 @@ class Plug_Charges_Adapter {
             foreach ( $order->get_items() as $item_id => $item ) { 
                 $this->payload['fraudAnalysis']['cart']['items'][] = [
                     'name' => sanitize_text_field($item->get_name()),
-                    'quantity' => sanitize_text_field($item->get_quantity()),
+                    'quantity' => $item->get_quantity(),
                     'sku' => sanitize_text_field($item->get_id()),
-                    'unitPrice' => sanitize_text_field($item->get_total()),
+                    'unitPrice' => intval($item->get_total()),
                     'risk' => "Low"
                 ];                
             }
@@ -145,5 +149,23 @@ class Plug_Charges_Adapter {
             "days"=> $fine_days,
             $this->gateway->get_option( 'fine_type', 'amount' )=> $fine_value
         );
-    }       
+    }      
+    
+    public function hide_sensitive(){
+        $sanitized = $this->payload;
+
+        if($sanitized['paymentMethod']['paymentType'] == 'credit'){
+            $sanitized = array(
+                "sourceType" => "card",
+                "card"=> array(
+                    "cardNumber"=> '**** **** **** ****',
+                    "cardCvv"=> '***',
+                    "cardExpirationDate"=> '**/****',
+                    "cardHolderName"=> '**** ********** *******'
+                )
+            );
+        }
+
+        return $sanitized;
+    }
 }

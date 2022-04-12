@@ -40,3 +40,8 @@
     * Adicionado opção de debuger para facilitar o trace dos payloads 
 ### 1.2.0 - 2022-03-31 ###
     * Adicionado percentual de desconto para meio de pagamento    
+
+### 1.3.0 - 2022-04-15 ###
+    * Adicionado filtro de dados sensiveis no debugger
+    * Adicionado tradução de erros na transação falhada
+    * Correções no contrato de fraudanalysis
