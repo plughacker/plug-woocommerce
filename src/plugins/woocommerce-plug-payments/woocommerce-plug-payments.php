@@ -11,13 +11,13 @@
  * WC requires at least: 3.3
  * WC tested up to: 5.8.3
  * Text Domain: plug-payments-gateway
- * Domain Path: /languages
+ * Domain Path: /languages/
  */
 
 defined( 'ABSPATH' ) || exit;
 
 // Plugin constants.
-define( 'WC_PLUGPAYMENTS_VERSION', '1.2.0' );
+define( 'WC_PLUGPAYMENTS_VERSION', '1.3.0' );
 define( 'WC_PLUGPAYMENTS_PLUGIN_FILE', __FILE__ );
 require_once dirname( __FILE__ ) . '/includes/constants/payments-types.php';
 
@@ -51,7 +51,7 @@ class WC_Plug_Payments {
 	}	
 
 	public static function load_plugin_textdomain() {
-		load_plugin_textdomain( 'plug-payments-gateway', false, "woocommerce-plug-payments/languages/" );
+		load_plugin_textdomain( 'plug-payments-gateway', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}	
 }   
 

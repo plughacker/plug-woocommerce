@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: plug-payments-gateway\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-"
 "pagseguro\n"
-"POT-Creation-Date: 2022-03-29 15:38-0300\n"
-"PO-Revision-Date: 2022-03-29 15:43-0300\n"
+"POT-Creation-Date: 2022-04-11 17:23-0300\n"
+"PO-Revision-Date: 2022-04-11 17:24-0300\n"
 "Last-Translator: \n"
 "Language-Team: pt_BR <LL@li.org>\n"
 "Language: pt_BR\n"
@@ -222,7 +222,11 @@ msgstr "Plug: O pagamento entrou em disputa."
 msgid " discount"
 msgstr " desconto"
 
-#: includes/class-wc-plug-gateway.php:406
+#: includes/class-wc-plug-gateway.php:398
+msgid "Unauthorized!"
+msgstr "Não autorizado!"
+
+#: includes/class-wc-plug-gateway.php:414
 msgid "Internal error :("
 msgstr "Erro interno :("
 
@@ -313,6 +317,91 @@ msgstr "desconto Pix"
 #: includes/poedit.php:10
 msgid "boleto discount"
 msgstr "desconto Boleto"
+
+#: includes/poedit.php:11
+msgid "invalid_cvv"
+msgstr "o código de segurança não é válido"
+
+#: includes/poedit.php:12
+msgid "merchant_not_found"
+msgstr "comerciante não encontrado"
+
+#: includes/poedit.php:13
+msgid "payment_not_supported"
+msgstr "pagamento não suportado"
+
+#: includes/poedit.php:14
+msgid "provider_not_found"
+msgstr "provedor não encontrado"
+
+#: includes/poedit.php:15
+msgid "invalid_document"
+msgstr "documento inválido"
+
+#: includes/poedit.php:16
+msgid "unauthorized_adapter"
+msgstr "adaptador não autorizado"
+
+#: includes/poedit.php:17
+msgid "card_pending_validation"
+msgstr "o código de segurança é necessário para prosseguir"
+
+#: includes/poedit.php:18
+msgid "card_not_found"
+msgstr "cartão não encontrado"
+
+#: includes/poedit.php:19
+msgid "invalid_source_type"
+msgstr ""
+"a propriedade customer é obrigatória ser utilizada no 'source_type' para pix"
+
+#: includes/poedit.php:20
+msgid "invalid_card_number"
+msgstr "número do cartão não é válido"
+
+#: includes/poedit.php:21
+msgid "invalid_holder_name"
+msgstr "nome do portador do cartão não é válido"
+
+#: includes/poedit.php:22
+msgid "invalid_expiration_date"
+msgstr "data de expiração do cartão não é válida"
+
+#: includes/poedit.php:23
+msgid "invalid_card_cvv"
+msgstr "código de segurança não é válido"
+
+#: includes/poedit.php:24
+msgid "customer_not_found"
+msgstr "cliente não encontrado"
+
+#: includes/poedit.php:25
+msgid "customer_has_not_pre_authorized"
+msgstr "cobrança ainda não foi pré-autorizada ou já foi capturada"
+
+#: includes/poedit.php:26
+msgid "amount_cannot_be_greater_than_transaction"
+msgstr "valor não pode ser maior do que o valor da transação"
+
+#: includes/poedit.php:27
+msgid "refund_greater_than_transaction"
+msgstr "não é possível fazer um reembolso maior do que o valor do pagamento"
+
+#: includes/poedit.php:28
+msgid "charge_has_not_yet_canceled"
+msgstr "cobrança ainda não foi cancelada"
+
+#: includes/poedit.php:29
+msgid "charge_already_voided"
+msgstr "cobrança já anulada/cancelada"
+
+#: includes/poedit.php:30
+msgid "transaction_not_found"
+msgstr "transação não encontrada"
+
+#: includes/poedit.php:31
+msgid "transaction_has_not_pre_authorized"
+msgstr "transação não foi pré-autorizada"
 
 #: templates/notice/missing-clientId.php:2
 #: templates/notice/missing-merchant.php:2 templates/notice/missing-token.php:2
