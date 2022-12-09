@@ -5,7 +5,7 @@
  * Description: Take credit card payments on your store using Plug.
  * Author: Plug Payments
  * Author URI: https://www.plugpagamentos.com/
- * Version: 1.2.0
+ * Version: 1.3.0
  * Requires at least: 5.6
  * Tested up to: 5.9
  * WC requires at least: 3.3
