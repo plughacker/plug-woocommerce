@@ -33,15 +33,17 @@
 
 ### 1.0.0 - 2022-01-11 ###
     * Optimize for publish on wordpress
-    * Release :)
+	
 ### 1.1.0 - 2022-03-28 ###
-    * Adicionado suporte ao contrato de fraudanalysis
-    * Adicionado configuração para alterar o titulo do método de pagamento
-    * Adicionado opção de debuger para facilitar o trace dos payloads 
+    * Added fraudanalysis contract support
+    * Added setting to change payment method title
+    * Added debugger option to make it easier to trace payloads
+	
 ### 1.2.0 - 2022-03-31 ###
-    * Adicionado percentual de desconto para meio de pagamento    
+    * Added discount percentage for payment method  
 
 ### 1.3.0 - 2022-04-15 ###
-    * Adicionado filtro de dados sensiveis no debugger
-    * Adicionado tradução de erros na transação falhada
-    * Correções no contrato de fraudanalysis
+    * Added sensitive data filter in debugger
+    * Added error translation on failed transaction
+    * Fraudanalysis contract fixes
+	* Included the address fields in the consumer object, they are required in BS2
