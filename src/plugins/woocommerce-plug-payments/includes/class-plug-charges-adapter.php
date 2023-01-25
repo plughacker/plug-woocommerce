@@ -56,6 +56,7 @@ class Plug_Charges_Adapter {
                         'city' => sanitize_text_field($post['billing_city']),
                         'state' => sanitize_text_field($post['billing_state']),
                         'country' => sanitize_text_field($post['billing_country']),
+                        "complement"=> sanitize_text_field($post['billing_address_2']), 
                         'district' => $district,
                     ]
                 ],
@@ -104,6 +105,15 @@ class Plug_Charges_Adapter {
                 "name"=> sanitize_text_field($post['billing_first_name'] . ' ' . $post['billing_last_name']),
                 "phoneNumber"=> sanitize_text_field($post['billing_phone']),
                 "email"=> sanitize_email($post['billing_email']),
+				"address"=> array(
+					"street"=> sanitize_text_field($post['billing_address_1']), 
+					"streetNumber"=> sanitize_text_field($post['billing_number']), 
+					"zipCode"=> sanitize_text_field($post['billing_postcode']), 
+					"country"=> sanitize_text_field($post['billing_country']), 
+					"state"=> sanitize_text_field($post['billing_state']), 
+					"district"=> sanitize_text_field($post['billing_neighborhood']), 
+					"city"=> sanitize_text_field($post['billing_city'])
+				),				
                 "document"=> array(
                     "number"=> $document_number,
                     "type"=> $document_type
@@ -132,6 +142,15 @@ class Plug_Charges_Adapter {
                 "name"=> sanitize_text_field($post['billing_first_name'] . ' ' . $post['billing_last_name']),
                 "phoneNumber"=> sanitize_text_field($post['billing_phone']),
                 "email"=> sanitize_email($post['billing_email']),
+				"address"=> array(
+					"street"=> sanitize_text_field($post['billing_address_1']), 
+					"streetNumber"=> sanitize_text_field($post['billing_number']), 
+					"zipCode"=> sanitize_text_field($post['billing_postcode']), 
+					"country"=> sanitize_text_field($post['billing_country']), 
+					"state"=> sanitize_text_field($post['billing_state']), 
+					"district"=> sanitize_text_field($post['billing_neighborhood']), 
+					"city"=> sanitize_text_field($post['billing_city'])
+				),
                 "document"=> array(
                     "number"=> $document_number,
                     "type"=> $document_type
