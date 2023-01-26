@@ -14,6 +14,15 @@
             "name":"Antonio Alves",
             "phoneNumber":"(88) 99901-0000",
             "email":"plug@gmail.com",
+                "address": {
+                    "street": "R do centro", 
+                    "streetNumber": "88999018817", 
+                    "zipCode": "63180-000",
+                    "country": "BR",
+                    "state": "CE",
+                    "district": "",
+                    "city": "Juazeiro do norte"
+                },						
             "document":{
                 "number":"55015337078",
                 "type":"cpf"
