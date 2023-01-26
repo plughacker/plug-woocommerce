@@ -1,20 +1,7 @@
 var gulp      = require('gulp')
-,   minifyJS  = require('gulp-minify')
 ,   minifyCSS = require('gulp-minify-css')
 ,   debug     = require('gulp-debug')
 ,   less      = require('gulp-less');
-
-gulp.task('js', function(){
-   gulp.src(['src/plugins/woocommerce-plug-payments/assets/js/*.js'])
-   .pipe(debug({title:'js'}))
-   .pipe(minifyJS({
-        ext:{
-            src:'-debug.js',
-            min:'-min.js'
-        }
-    }))
-   .pipe(gulp.dest('src/plugins/woocommerce-plug-payments/assets/js/min/'));
-});
 
 gulp.task('less', function () {
     gulp.src('src/plugins/woocommerce-plug-payments/assets/css/*.less')

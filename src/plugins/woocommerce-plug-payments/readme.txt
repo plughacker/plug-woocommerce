@@ -1,10 +1,10 @@
-=== Plug Pagamentos ===
+=== Malga ===
 
 Contributors: plugpayments
-Tags: woocommerce, plug, gateway, payment  
+Tags: woocommerce, malga, gateway, payment  
 Requires at least: 5.6
 Tested up to: 5.9
-Stable tag: 1.0
+Stable tag: 1.4.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Trabalhe com os melhores provedor para o seu negócio desde a primeira transaç�
 
 == Description ==
 
-Receba pagamentos por cartão de crédito, boleto bancário e pix utilizando a [Plug](https://www.plugpagamentos.com/?lang=en).
+Receba pagamentos por cartão de crédito, boleto bancário e pix utilizando a [Malga](https://www.malga.io/).
 
 == Colaborar ==
 
@@ -31,9 +31,9 @@ Com o plugin instalado acesse o admin do WordPress e entre em **"WooCommerce"** 
 
 *Também será necessário utilizar o plugin [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/) para poder enviar campos de CPF e CNPJ.*
 
-Pronto, sua loja já pode receber pagamentos pela [Plug](https://www.plugpagamentos.com/?lang=en).
+Pronto, sua loja já pode receber pagamentos pela [Plug](https://www.malga.io).
 
-Mais informações sobre nossa API pode consultar a [documentação](https://docs.plugpagamentos.com/) ou entrar em contato :)
+Mais informações sobre nossa API pode consultar a [documentação](https://docs.malga.io/) ou entrar em contato :)
 
 = Minimum Requirements =
 
@@ -44,4 +44,4 @@ Mais informações sobre nossa API pode consultar a [documentação](https://doc
 
 = Como criar uma conta na Plug? =
 
-Para criar uma conta na plug é só entrar em contato [aqui](https://www.plugpagamentos.com/contato?lang=en)
+Para criar uma conta na plug é só entrar em contato [aqui](https://www.malga.io/contato?lang=en)

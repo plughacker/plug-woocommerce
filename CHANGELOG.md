@@ -45,3 +45,7 @@
     * Adicionado filtro de dados sensiveis no debugger
     * Adicionado tradução de erros na transação falhada
     * Correções no contrato de fraudanalysis
+
+### 1.4.0 - 2022-04-15 ###
+    * handling errors
+    * Change to Malga

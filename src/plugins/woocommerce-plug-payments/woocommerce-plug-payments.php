@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Plug Pagamentos
- * Plugin URI: https://www.plugpagamentos.com/wocommerce
- * Description: Take credit card payments on your store using Plug.
- * Author: Plug Payments
- * Author URI: https://www.plugpagamentos.com/
- * Version: 1.2.0
+ * Plugin Name: Malga
+ * Plugin URI: https://www.malga.io/wocommerce
+ * Description: Take credit card payments on your store using Malga.
+ * Author: Malga Team
+ * Author URI: https://www.malga.io/
+ * Version: 1.4.0
  * Requires at least: 5.6
  * Tested up to: 5.9
  * WC requires at least: 3.3

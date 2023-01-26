@@ -5,8 +5,8 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 	public function __construct() {
 		$this->id                 = 'plugpayments';
 		$this->icon               = apply_filters( 'woocommerce_plugpayments_icon', plugins_url( 'assets/images/poweredbyplug.png', plugin_dir_path( __FILE__ ) ) );
-		$this->method_title       = __( 'Plug', 'plug-payments-gateway' );
-		$this->method_description = __( 'Accept payments by credit card, bank debit or banking ticket using the Plug Payments.', 'plug-payments-gateway' );
+		$this->method_title       = __( 'Malga', 'plug-payments-gateway' );
+		$this->method_description = __( 'Accept payments by credit card, bank debit or banking ticket using the Malga Payments.', 'plug-payments-gateway' );
 		$this->order_button_text  = __( 'Pay', 'plug-payments-gateway' );
 
 		$this->init_form_fields();
@@ -217,7 +217,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		if ( is_checkout() && $this->is_available() ) {
 			if ( ! get_query_var( 'order-received' ) ) {
 				wp_enqueue_style( 'plugpayments-checkout', plugins_url( 'assets/css/transparent-checkout.css', plugin_dir_path( __FILE__ ) ), array(), WC_PLUGPAYMENTS_VERSION );
-				wp_enqueue_script( 'plugpayments-checkout', plugins_url( 'assets/js/min/transparent-checkout-min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_PLUGPAYMENTS_VERSION, true );
+				wp_enqueue_script( 'plugpayments-checkout', plugins_url( 'assets/js/transparent-checkout.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_PLUGPAYMENTS_VERSION, true );
 			}
 		}
 	}
