@@ -394,12 +394,8 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 					'redirect' => $redirect
 				);	
 			}else{	
-				if( $response['data']['status']  == 'failed'){		
-					foreach ( $response['data']['transactionRequests'] as $request ) {
-						if(isset($request['providerError'])){
-							wc_add_notice( __('Unauthorized!', 'plug-payments-gateway' ) . ' ' . __($request['providerError']['declinedCode'], 'plug-payments-gateway' ), 'error' );
-						}
-					}
+				foreach ( $response['error'] as $error ) {
+					wc_add_notice( __($error, 'plug-payments-gateway' ), 'error' );
 				}
 
 				return array(

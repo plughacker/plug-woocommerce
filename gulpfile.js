@@ -16,5 +16,5 @@ gulp.task('watch', function() {
 	gulp.watch(['src/plugins/woocommerce-plug-payments/assets/js/*.js'],  { interval: 1000, delay: 1000 },['js']);
 })
 
-gulp.task('build',['less', 'js']);
+gulp.task('build',['less']);
 gulp.task('develop',  ['build','watch']);
