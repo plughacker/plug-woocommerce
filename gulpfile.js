@@ -13,7 +13,6 @@ gulp.task('less', function () {
 
 gulp.task('watch', function() {
 	gulp.watch(['src/plugins/woocommerce-plug-payments/assets/css/*.less'],  { interval: 1000, delay: 1000 },['less']);
-	gulp.watch(['src/plugins/woocommerce-plug-payments/assets/js/*.js'],  { interval: 1000, delay: 1000 },['js']);
 })
 
 gulp.task('build',['less']);
