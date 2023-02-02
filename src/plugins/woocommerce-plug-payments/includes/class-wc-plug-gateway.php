@@ -21,6 +21,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->sandbox_merchantId  = $this->get_option( 'sandbox_merchantId' );
 		$this->statement_descriptor= $this->get_option( 'statement_descriptor', 'WC-' );
 		$this->webhook_secret	   = $this->get_option( 'webhook_secret', 'uuid' );
+		$this->currency	   		   = $this->get_option( 'currency', 'BRL' );
 		$this->sandbox             = $this->get_option( 'sandbox', 'no' );    
 		$this->debuger             = $this->get_option( 'debuger', 'no' ); 
 		$this->fraudanalysis       = $this->get_option( 'fraudanalysis', 'no' ); 
@@ -149,7 +150,13 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'type'        => 'text',
 				'description' => sprintf(__( 'Please enter a Webhook Secret, use: %s', 'plug-payments-gateway' ), WC()->api_request_url( 'WC_PlugPayments_Gateway' ) . '?secret=' . $this->get_option( 'webhook_secret', 'uuid' )),
 				'default'     => 'uuid',
-			),			
+			),		
+			'currency' => array(
+				'title'       => __( 'Currency', 'plug-payments-gateway' ),
+				'type'        => 'text',
+				'description' => sprintf(__( 'Currency identifier for billing processing, ISO 4217 format', 'plug-payments-gateway' )),
+				'default'     => 'BRL',
+			),	
 			'transparent_checkout' => array(
 				'title'       => __( 'Transparent Checkout Options', 'plug-payments-gateway' ),
 				'type'        => 'title',
