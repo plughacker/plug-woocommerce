@@ -15,8 +15,6 @@ class Plug_Charges_Adapter {
 				"paymentType"=> sanitize_text_field($post['paymentType'])
 			)			
 		);    
-        
-        $this->payload["currency"] = $this->gateway->currency;
     }
 
     private function get_document( $post ) {
@@ -96,6 +94,7 @@ class Plug_Charges_Adapter {
         );
 
         $this->payload['paymentMethod']['installments'] = intval($post['plugpayments_card_installments']);
+        $this->payload["currency"] = $this->gateway->currency;
     }
 
     public function to_pix( $post ) {
