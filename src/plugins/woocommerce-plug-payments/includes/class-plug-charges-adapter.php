@@ -77,6 +77,10 @@ class Plug_Charges_Adapter {
         }
     }
 
+    public function set_payment_flow( $metadata ) {
+        $this->payload['paymentFlow']['metadata'] = $metadata;
+    }
+
     public function to_credit( $post ) {
         if(!isset($post['plugpayments_card_installments'])) $post['plugpayments_card_installments'] = "1";
 
@@ -175,14 +179,8 @@ class Plug_Charges_Adapter {
         $sanitized = $this->payload;
 
         if($sanitized['paymentMethod']['paymentType'] == 'credit'){
-            $sanitized = array(
-                "sourceType" => "card",
-                "card"=> array(
-                    "cardNumber"=> '**** **** **** ****',
-                    "cardCvv"=> '***',
-                    "cardExpirationDate"=> '**/****',
-                    "cardHolderName"=> '**** ********** *******'
-                )
+            $sanitized['paymentSource']['paymentType'] = array(
+                "sourceType" => "card"
             );
         }
 
