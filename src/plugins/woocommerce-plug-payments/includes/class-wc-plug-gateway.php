@@ -5,8 +5,8 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 	public function __construct() {
 		$this->id                 = 'plugpayments';
 		$this->icon               = apply_filters( 'woocommerce_plugpayments_icon', plugins_url( 'assets/images/poweredbyplug.png', plugin_dir_path( __FILE__ ) ) );
-		$this->method_title       = __( 'Plug', 'plug-payments-gateway' );
-		$this->method_description = __( 'Accept payments by credit card, bank debit or banking ticket using the Plug Payments.', 'plug-payments-gateway' );
+		$this->method_title       = __( 'Malga', 'plug-payments-gateway' );
+		$this->method_description = __( 'Accept payments by credit card, bank debit or banking ticket using the Malga Payments.', 'plug-payments-gateway' );
 		$this->order_button_text  = __( 'Pay', 'plug-payments-gateway' );
 
 		$this->init_form_fields();
@@ -21,6 +21,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		$this->sandbox_merchantId  = $this->get_option( 'sandbox_merchantId' );
 		$this->statement_descriptor= $this->get_option( 'statement_descriptor', 'WC-' );
 		$this->webhook_secret	   = $this->get_option( 'webhook_secret', 'uuid' );
+		$this->currency	   		   = $this->get_option( 'currency', 'BRL' );
 		$this->sandbox             = $this->get_option( 'sandbox', 'no' );    
 		$this->debuger             = $this->get_option( 'debuger', 'no' ); 
 		$this->fraudanalysis       = $this->get_option( 'fraudanalysis', 'no' ); 
@@ -149,7 +150,13 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 				'type'        => 'text',
 				'description' => sprintf(__( 'Please enter a Webhook Secret, use: %s', 'plug-payments-gateway' ), WC()->api_request_url( 'WC_PlugPayments_Gateway' ) . '?secret=' . $this->get_option( 'webhook_secret', 'uuid' )),
 				'default'     => 'uuid',
-			),			
+			),		
+			'currency' => array(
+				'title'       => __( 'Currency', 'plug-payments-gateway' ),
+				'type'        => 'text',
+				'description' => sprintf(__( 'Currency identifier for billing processing, ISO 4217 format', 'plug-payments-gateway' )),
+				'default'     => 'BRL',
+			),	
 			'transparent_checkout' => array(
 				'title'       => __( 'Transparent Checkout Options', 'plug-payments-gateway' ),
 				'type'        => 'title',
@@ -217,7 +224,7 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 		if ( is_checkout() && $this->is_available() ) {
 			if ( ! get_query_var( 'order-received' ) ) {
 				wp_enqueue_style( 'plugpayments-checkout', plugins_url( 'assets/css/transparent-checkout.css', plugin_dir_path( __FILE__ ) ), array(), WC_PLUGPAYMENTS_VERSION );
-				wp_enqueue_script( 'plugpayments-checkout', plugins_url( 'assets/js/min/transparent-checkout-min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_PLUGPAYMENTS_VERSION, true );
+				wp_enqueue_script( 'plugpayments-checkout', plugins_url( 'assets/js/transparent-checkout.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_PLUGPAYMENTS_VERSION, true );
 			}
 		}
 	}
@@ -394,12 +401,8 @@ class WC_Plug_Gateway extends WC_Payment_Gateway {
 					'redirect' => $redirect
 				);	
 			}else{	
-				if( $response['data']['status']  == 'failed'){		
-					foreach ( $response['data']['transactionRequests'] as $request ) {
-						if(isset($request['providerError'])){
-							wc_add_notice( __('Unauthorized!', 'plug-payments-gateway' ) . ' ' . __($request['providerError']['declinedCode'], 'plug-payments-gateway' ), 'error' );
-						}
-					}
+				foreach ( $response['error'] as $error ) {
+					wc_add_notice( __($error, 'plug-payments-gateway' ), 'error' );
 				}
 
 				return array(

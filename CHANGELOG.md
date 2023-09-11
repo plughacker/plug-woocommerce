@@ -46,4 +46,8 @@
     * Added sensitive data filter in debugger
     * Added error translation on failed transaction
     * Fraudanalysis contract fixes
-	* Included the address fields in the consumer object, they are required in BS2
+	  * Included the address fields in the consumer object, they are required in BS2
+
+### 1.4.0 - 2022-04-15 ###
+    * handling errors
+    * Change to Malga

@@ -40,6 +40,20 @@ class WC_PlugPayments_API {
 			$order->add_order_note( 'Return: '.json_encode($return), 'plug-payments-gateway' );
 		}
 
+		if($return['status'] == 'failed'){
+			$errors = array();
+			if(isset($return['transactionRequests'][0]['providerError'])){
+				$error = $return['transactionRequests'][0]['providerError']['networkDeniedMessage'];
+				$errors[] = __($error, 'plug-payments-gateway' );
+			}
+
+			return array(
+				'url'   => '',
+				'data'  => '',
+				'error' => $errors,
+			);
+		}
+
 		if (isset($return['error'])) {
 			$errors = array();
 			if(isset($return['error']['message'])){

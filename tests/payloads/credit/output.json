@@ -4,6 +4,7 @@
     "statementDescriptor":null,
     "capture":true,
     "orderId":"14",
+    "currency":"BRL",
     "paymentMethod":{
         "paymentType":"credit",
         "installments":2
