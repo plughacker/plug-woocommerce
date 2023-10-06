@@ -57,18 +57,3 @@ class WC_Plug_Payments {
 
 add_action( 'plugins_loaded', array( 'WC_Plug_Payments', 'init' ) );
 add_action( 'plugins_loaded', array( 'WC_Plug_Payments', 'load_plugin_textdomain' ) );
-
-
-//Exemplo para definir metadata
-/*
-function example_metadata( $metadata, $order, $post  ) {
-    foreach ( $order->get_items() as $item_id => $item ) { 
-		if($item->get_name() == 'test'){
-			$metadata['cnpj'] = '123';
-		}
-	}
-
-    return $metadata;
-}
-add_filter( 'malga_payment_flow', 'example_metadata', 10, 3 );
-*/
