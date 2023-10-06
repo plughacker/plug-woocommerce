@@ -1,4 +1,4 @@
-# Plug Pagamentos for WooCommerce #
+# Malga Pagamentos for WooCommerce #
 **Contributors:** PlugTeam
 **Tags:** woocommerce, plug, gateway, payment  
 **Requires at least:** 5.6  
@@ -9,9 +9,8 @@
 
 ## Description ##
 
-Receba pagamentos por cartão de crédito, boleto bancário e pix utilizando a [Plug](https://www.plugpagamentos.com/?lang=en).
+Receba pagamentos por cartão de crédito, boleto bancário e pix utilizando a [Malga](https://www.malga.io).
 
-[![Gif Plug](https://static.wixstatic.com/media/656f2b_07e76b8231da4491880ac7a7981fb0ff~mv2.gif "Gif Plug")](https://www.plugpagamentos.com/ "Gif Plug")
 
 ### Compatibilidade ###
 
@@ -32,20 +31,35 @@ Você pode contribuir com código-fonte em nossa página no [GitHub](https://git
 
 ### Requerimentos: ###
 
-É necessário possuir uma conta na [Plug](https://www.plugpagamentos.com/) e ter instalado o [WooCommerce](http://wordpress.org/plugins/woocommerce/).
+É necessário possuir uma conta na [Malga](https://www.malga.io) e ter instalado o [WooCommerce](http://wordpress.org/plugins/woocommerce/).
 
 ### Configurações do Plugin: ###
 
-Com o plugin instalado acesse o admin do WordPress e entre em **"WooCommerce"** > **"Configurações"** > **"Pagamentos"** e configure as opção **"Plug"**:
+Com o plugin instalado acesse o admin do WordPress e entre em **"WooCommerce"** > **"Configurações"** > **"Pagamentos"** e configure as opção **"Malga"**:
 
 - Habilite o meio de pagamento que você deseja, preencha as opções de **X-Client-Id**, **X-Api-Key** e **MerchantId** com os dados que você recebeu da plug.
-- Configure uma Chave secreta para o seu webhook e logo apois faça o registro do mesmo na api da Plug, se tiver duvidas pode consultar nossa [documentação](https://docs.plugpagamentos.com/#section/Criacao-de-um-webhook)
+- Configure uma Chave secreta para o seu webhook e logo apois faça o registro do mesmo na api da Malga, se tiver duvidas pode consultar nossa [documentação](https://docs.plugpagamentos.com/#section/Criacao-de-um-webhook)
 
 *Também será necessário utilizar o plugin [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/) para poder enviar campos de CPF e CNPJ.*
 
 Pronto, sua loja já pode receber pagamentos pela [Plug](https://www.plugpagamentos.com/?lang=en).
 
 Mais informações sobre nossa API pode consultar a [documentação](https://docs.plugpagamentos.com/) ou entrar em contato :)
+
+### Caso tenha que enviar um metadata ao PaymentFlow
+No fluxo  de pagamentos temos a opção de enviar dados adicionais para o orquestrador, o mesmo pode ser feito utilizando o filter malga_payment_flow como no exemplo a baixo:
+
+```
+function example_metadata( $metadata, $order, $post  ) {
+    foreach ( $order->get_items() as $item_id => $item ) { 
+		if($item->get_name() == 'test'){
+			$metadata['cnpj'] = '123';
+		}
+	}
+    return $metadata;
+}
+add_filter( 'malga_payment_flow', 'example_metadata', 10, 3 );
+```
 
 ## Testes ##
 
