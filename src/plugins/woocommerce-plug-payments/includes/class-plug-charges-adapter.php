@@ -3,17 +3,34 @@ class Plug_Charges_Adapter {
     public $gateway, $payload;
 
 	public function __construct($api, $order, $post) {
-        $this->gateway = $api->gateway;      
+        $this->gateway = $api->gateway;   
+        
+        if(!isset($_SERVER['HTTP_USER_AGENT'])){
+            $_SERVER['HTTP_USER_AGENT'] = 'null';
+        }
 
 		$this->payload = array(
-			"merchantId"=> $this->gateway->get_merchantId(),
-			"amount"=> $api->money_format( $order->get_total() ),
-			"statementDescriptor"=> $this->gateway->statement_descriptor,
-			"capture"=> true,
-			"orderId"=> $order->get_order_number(),
-			"paymentMethod"=> array(
-				"paymentType"=> sanitize_text_field($post['paymentType'])
-			)			
+			"merchantId" => $this->gateway->get_merchantId(),
+			"amount" => $api->money_format( $order->get_total() ),
+			"statementDescriptor" => $this->gateway->statement_descriptor,
+			"capture" => true,
+			"orderId" => $order->get_order_number(),
+			"paymentMethod" => ["paymentType"=> sanitize_text_field($post['paymentType'])],
+            "appInfo" => [
+                "platform" => [
+                   "integrator" => "malga",
+                   "name" => "woocommerce",
+                   "version" => "1.0"
+                ],
+                "device" => [
+                   "name" => "browser",
+                   "version" => $_SERVER['HTTP_USER_AGENT']
+                ],
+                "system" => [
+                   "name" => "woocommerce",
+                   "version" => "1.0"
+                ]
+            ]
 		);    
     }
 
