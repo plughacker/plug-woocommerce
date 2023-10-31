@@ -6,14 +6,27 @@ class Plug_Charges_Adapter {
         $this->gateway = $api->gateway;      
 
 		$this->payload = array(
-			"merchantId"=> $this->gateway->get_merchantId(),
-			"amount"=> $api->money_format( $order->get_total() ),
-			"statementDescriptor"=> $this->gateway->statement_descriptor,
-			"capture"=> true,
-			"orderId"=> $order->get_order_number(),
-			"paymentMethod"=> array(
-				"paymentType"=> sanitize_text_field($post['paymentType'])
-			)			
+			"merchantId" => $this->gateway->get_merchantId(),
+			"amount" => $api->money_format( $order->get_total() ),
+			"statementDescriptor" => $this->gateway->statement_descriptor,
+			"capture" => true,
+			"orderId" => $order->get_order_number(),
+			"paymentMethod" => ["paymentType"=> sanitize_text_field($post['paymentType'])],
+            "appInfo" => [
+                "platform" => [
+                   "integrator" => "malga",
+                   "name" => "woocommerce",
+                   "version" => "1.0"
+                ],
+                "device" => [
+                   "name" => "browser",
+                   "version" => $_SERVER['HTTP_USER_AGENT']
+                ],
+                "system" => [
+                   "name" => "woocommerce",
+                   "version" => "1.0"
+                ]
+            ]
 		);    
     }
 
