@@ -17,5 +17,20 @@
             "cardExpirationDate":"06\/2028",
             "cardHolderName":"JOAO DA SILVA"
         }
+    },
+    "appInfo":{
+        "platform":{
+            "integrator":"malga",
+            "name":"woocommerce",
+            "version":"1.0"
+        },
+        "device": {
+            "name":"browser",
+            "version":"null"
+        },
+        "system":{
+            "name":"woocommerce",
+            "version":"1.0"
+        }
     }
 }

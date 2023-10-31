@@ -28,5 +28,20 @@
                 "type":"cpf"
             }
         }
-    }
+    },
+    "appInfo":{
+        "platform":{
+            "integrator":"malga",
+            "name":"woocommerce",
+            "version":"1.0"
+        },
+        "device": {
+            "name":"browser",
+            "version":"null"
+        },
+        "system":{
+            "name":"woocommerce",
+            "version":"1.0"
+        }
+    }    
 }

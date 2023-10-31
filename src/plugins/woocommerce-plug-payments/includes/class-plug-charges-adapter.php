@@ -3,7 +3,11 @@ class Plug_Charges_Adapter {
     public $gateway, $payload;
 
 	public function __construct($api, $order, $post) {
-        $this->gateway = $api->gateway;      
+        $this->gateway = $api->gateway;   
+        
+        if(!isset($_SERVER['HTTP_USER_AGENT'])){
+            $_SERVER['HTTP_USER_AGENT'] = 'null';
+        }
 
 		$this->payload = array(
 			"merchantId" => $this->gateway->get_merchantId(),
